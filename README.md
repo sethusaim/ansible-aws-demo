@@ -1,7 +1,5 @@
 # Ansible-AWS-Demo
 
-This repo is used for running ansible in AWS EC2 instance. We are installing apache for demo. The infrastructure is created using terraform.
-
 ## Prerequisites 
 - Having an AWS account
 - Create a user with admin access (use only if your using your own personal account)
