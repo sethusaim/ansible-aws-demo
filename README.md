@@ -108,7 +108,7 @@ mkdir playbooks
 ```
 
 ```bash 
-sudo nano playbooks/test.yml
+sudo nano playbooks/apache.yml
 ```
 
 ```bash
@@ -122,12 +122,12 @@ sudo nano playbooks/test.yml
     - name: Ensure Apache has started
       service: name=apache2 state=started enabled=yes
 ```
-Copy these contents and paste them in the test.yml file and save then exit.
+Copy these contents and paste them in the apache.yml file and save then exit.
 
 Now that we have created our playbooks, we need run them to perform tasks in target ec2 instance. In order to do so run the following commands,
 
 ```bash
-sudo ansible-playbook playbooks/test.yml
+sudo ansible-playbook playbooks/apache.yml
 ```
 
 On running this command, you will get an error,which says "Permissions 0644 for 'sethu.pem' are too open". To resolve this, we need to change the permissions on pem file. In order to do so, run the following commands
@@ -138,7 +138,7 @@ sudo chmod 400 YOUR_PEM_FILE_NAME.pem
 Now run the commands,
 
 ```bash
-sudo ansible-playbook playbooks/test.yml
+sudo ansible-playbook playbooks/apache.yml
 ```
 You will see that ansible playbook is running, and after sometime the tasks will run successfully, and will go to console and locate the target public ip and paste it in the broswer, to check whether apache is installed or not
 
