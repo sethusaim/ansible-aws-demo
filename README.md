@@ -138,7 +138,7 @@ sudo chmod 400 YOUR_PEM_FILE_NAME.pem
 Now run the commands,
 
 ```bash
-sudo ansible-playbook playbooks/apache.yml
+sudo ansible-playbook playbooks/main.yml
 ```
 You will see that ansible playbook is running, and after sometime the tasks will run successfully, and will go to console and locate the target public ip and paste it in the broswer, to check whether apache is installed or not
 
