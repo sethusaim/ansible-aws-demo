@@ -10,6 +10,6 @@ module "ansible_ec2" {
   source = "./ansible_ec2"
 }
 
-module "target_ec2" {
-  source = "./target_ec2"
-}
+# module "target_ec2" {
+#   source = "./target_ec2"
+# }
