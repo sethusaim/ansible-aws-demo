@@ -1,2 +1,2 @@
-- name: Running Apache Installation
+- name: Running Apache playbook
   import_playbook: apache.yml
