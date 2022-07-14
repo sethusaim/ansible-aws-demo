@@ -13,3 +13,7 @@ module "ansible_instance" {
 module "jenkins_instance" {
   source = "./jenkins_instance"
 }
+
+module "mlflow_instance" {
+  source = "./mlflow_instance"
+}
