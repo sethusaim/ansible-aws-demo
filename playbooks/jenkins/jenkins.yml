@@ -22,11 +22,15 @@
       become: true
 
     - name: Install Jenkins
-      apt: name=jenkins update_cache=yes
-      become: true
+      apt: 
+        name: jenkins
+        update_cache: yes
+        become: true
 
     - name: Check Jenkins Installation
-      service: name=jenkins state=started
+      service:
+        name: jenkins
+        state: started
 
     - name: Get Jenkins initial password
       shell: "sudo cat /var/lib/jenkins/secrets/initialAdminPassword"
