@@ -1,0 +1,19 @@
+- name: Docker Installation
+  hosts: Jenkins_Group
+  become: true
+  tasks:
+    - name: Get convenience script
+      shell: 'curl -fsSL https://get.docker.com -o get-docker.sh'
+
+    - name: Execute convenience script
+      shell: 'sudo sh get-docker.sh'
+ 
+    - name: Set permission for ubuntu user
+      shell: 'sudo usermod -aG docker ubuntu'
+
+    - name: Get docker version
+      shell: 'docker --version'
+      register: command_output
+
+    - debug:
+        var: command_output.stdout_lines
