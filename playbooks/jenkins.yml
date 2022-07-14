@@ -13,13 +13,24 @@
         name: openjdk-11-jdk
         state: present
 
-    - name: Add Jenkins Repo Key
-      apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io.key state=presentb
+    - name: Add Jenkins Repositry Key
+      apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io.key state=present
+      become: true
+
+    - name: Configure Jenkins Repositry
+      apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present
       become: true
 
     - name: Install Jenkins
-      apt: name=Jenkins update_cache=yes
+      apt: name=jenkins update_cache=yes
       become: true
 
     - name: Check Jenkins Installation
       service: name=jenkins state=started
+
+    - name: Get Jenkins initial password
+      shell: 'sudo cat /var/lib/jenkins/secrets/initialAdminPassword'
+      register: command_output
+
+    - debug:
+        var: command_output.stdout_lines
