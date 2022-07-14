@@ -3,3 +3,6 @@
 
 - name: Running Docker playbook
   import_playbook: docker.yml
+
+- name: Running Terraform playbook
+  import_playbook: terraform.yml
