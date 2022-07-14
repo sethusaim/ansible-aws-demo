@@ -6,10 +6,10 @@ terraform {
   }
 }
 
-module "ansible_ec2" {
-  source = "./ansible_ec2"
+module "ansible_instance" {
+  source = "./ansible_instance"
 }
 
-# module "target_ec2" {
-#   source = "./target_ec2"
-# }
+module "jenkins_instance" {
+  source = "./jenkins_instance"
+}
