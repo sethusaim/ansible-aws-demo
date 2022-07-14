@@ -8,11 +8,14 @@ pipeline {
       }
 
       steps {
-        script {
-          sh 'sudo ansible-playbook playbooks/main.yml'
+        sshagent(['ssh_key']) {
+          sh 'ssh -o StrictHostKeyChecking=no -l ubuntu ANSIBLE_IP wget https://raw.githubusercontent.com/sethusaim/Ansible-AWS-Demo/main/run_ansible.sh'
+
+          sh 'ssh -o StrictHostKeyChecking=no -l ubuntu ANSIBLE_IP bash run_ansible.sh'
         }
       }
     }
+
     stage('Plan and Apply new infrastrucuture') {
       when {
         changeset 'infrastructure/*'
