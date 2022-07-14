@@ -1,2 +1,5 @@
 - name: Running Jenkins playbook
   import_playbook: jenkins.yml
+
+- name: Running Docker playbook
+  import_playbook: docker.yml
