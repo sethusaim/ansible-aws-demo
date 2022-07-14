@@ -9,7 +9,7 @@
 
     - name: Install Java
       become: true
-      apt: 
+      apt:
         name: openjdk-11-jdk
         state: present
 
@@ -29,7 +29,7 @@
       service: name=jenkins state=started
 
     - name: Get Jenkins initial password
-      shell: 'sudo cat /var/lib/jenkins/secrets/initialAdminPassword'
+      shell: "sudo cat /var/lib/jenkins/secrets/initialAdminPassword"
       register: command_output
 
     - debug:
