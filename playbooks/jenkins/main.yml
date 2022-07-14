@@ -1,0 +1,8 @@
+- name: Install Jenkins
+  import_playbook: ./jenkins/jenkins.yml
+
+- name: Install Docker
+  import_playbook: ./jenkins/docker.yml
+
+- name: Install Terraform
+  import_playbook: ./jenkins/terraform.yml

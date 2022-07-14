@@ -1,0 +1,15 @@
+- name: MLFlow Installation
+  hosts: MLFlow_Group
+  become: true
+  tasks:
+    - name: Update using apt
+      apt:
+        update_cache: true
+
+    - name: Update using apt-get 
+      apt:
+        update_cache: true
+        force_apt_get: true
+
+    - name: Install Anaconda3
+      import_playbook: conda.yml 
