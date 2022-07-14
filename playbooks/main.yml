@@ -1,2 +1,2 @@
-- name: Running Apache playbook
-  import_playbook: apache.yml
+- name: Running Jenkins playbook
+  import_playbook: jenkins.yml
