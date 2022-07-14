@@ -1,0 +1,25 @@
+- name: Jenkins Installation
+  hosts: Jenkins_Group
+  become: true
+  tasks:
+    - name: Update apt
+      become: true
+      apt:
+        update_cache: yes
+
+    - name: Install Java
+      become: true
+      apt: 
+        name: openjdk-11-jdk
+        state: present
+
+    - name: Add Jenkins Repo Key
+      apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io.key state=presentb
+      become: true
+
+    - name: Install Jenkins
+      apt: name=Jenkins update_cache=yes
+      become: true
+
+    - name: Check Jenkins Installation
+      service: name=jenkins state=started
