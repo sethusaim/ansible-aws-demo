@@ -127,7 +127,7 @@ Copy these contents and paste them in the apache.yml file and save then exit.
 Now that we have created our playbooks, we need run them to perform tasks in target ec2 instance. In order to do so run the following commands,
 
 ```bash
-sudo ansible-playbook playbooks/apache.yml
+sudo ansible-playbook playbooks/main.yml
 ```
 
 On running this command, you will get an error,which says "Permissions 0644 for 'sethu.pem' are too open". To resolve this, we need to change the permissions on pem file. In order to do so, run the following commands
