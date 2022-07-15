@@ -1,5 +1,5 @@
 - name: Setup Jenkins 
-  import_playbook: ./jenkins/main.yml
+  import_playbook: ./jenkins.yml
 
 - name: Setup MLFlow
-  import_playbook: ./mlflow/main.yml
+  import_playbook: ./mlflow.yml
