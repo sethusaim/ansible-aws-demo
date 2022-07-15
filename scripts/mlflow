@@ -1,6 +1,6 @@
 server {
     listen 8080;
-    server_name YOUR_IP_OR_DOMAIN;
+    server_name 3.217.7.65;
     auth_basic “Administrator-Area”;
     auth_basic_user_file /etc/nginx/.htpasswd; 
 
