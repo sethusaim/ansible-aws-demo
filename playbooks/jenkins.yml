@@ -1,6 +1,3 @@
-- name: Install Terraform
-  import_playbook: ./jenkins/terraform.yml
-
 - name: Setup Jenkins
   hosts: Jenkins_Group
   become: true
