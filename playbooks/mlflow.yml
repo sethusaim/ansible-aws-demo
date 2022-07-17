@@ -1,5 +1,7 @@
 - name: MLFlow Installation
   hosts: MLFlow_Group
+  vars_files:
+    - /home/ubuntu/vars/variables.yml
   become: true
   tasks:
     - name: Update using apt
@@ -102,12 +104,12 @@
       become: true
 
     - name: Create mlflow environment
-      shell: "/home/ubuntu/anaconda3/bin/conda create -n mlflow python=3.7.6 -y"
+      shell: "/home/ubuntu/anaconda3/bin/conda create -n '{{mlflow.env_name}}' python=3.7.6 -y"
       args:
         executable: /usr/bin/bash
 
     - name: Activate mlflow environment
-      shell: "source /home/ubuntu/anaconda3/bin/activate mlflow"
+      shell: "source /home/ubuntu/anaconda3/bin/activate '{{mlflow.env_name}}'"
       args:
         executable: /usr/bin/bash
 
@@ -139,12 +141,12 @@
     - name: Set user name and password for nginx
       community.general.htpasswd:
         path: /etc/nginx/.htpasswd
-        name: sethusai
-        password: sethusai2056
+        name: "{{mlflow.username}}"
+        password: "{{mlflow.password}}"
 
-    - name: Create nginx configuration file
-      get_url:
-        url: https://raw.githubusercontent.com/sethusaim/Ansible-AWS-Demo/main/scripts/mlflow
+    - name: Copy the nginx configuration file
+      ansible.builtin.copy:
+        src: /home/ubuntu/mlflow
         dest: /etc/nginx/sites-enabled/
 
     - name: Restart nginx service
@@ -152,9 +154,9 @@
         name: nginx
         state: restarted
 
-    - name: Create service file for mlflow
-      get_url:
-        url: https://raw.githubusercontent.com/sethusaim/Ansible-AWS-Demo/main/scripts/mlflow-tracking.service
+    - name: Copy the mlflow service file
+      ansible.builtin.copy:
+        src: /home/ubuntu/mlflow-tracking.service
         dest: /etc/systemd/system/
 
     - name: Reload the daemon
