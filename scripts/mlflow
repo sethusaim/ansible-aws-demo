@@ -1,6 +1,6 @@
 server {
     listen 8080;
-    server_name 3.217.7.65;
+    server_name 44.207.230.233;
     auth_basic “Administrator-Area”;
     auth_basic_user_file /etc/nginx/.htpasswd; 
 
@@ -8,5 +8,5 @@ server {
         proxy_pass http://localhost:8000;
         include /etc/nginx/proxy_params;
         proxy_redirect off;
-    }
+    }   
 }
