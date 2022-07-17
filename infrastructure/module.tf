@@ -17,3 +17,7 @@ module "jenkins_instance" {
 module "mlflow_instance" {
   source = "./mlflow_instance"
 }
+
+module "application_instance" {
+  source = "./application_instance"
+}
