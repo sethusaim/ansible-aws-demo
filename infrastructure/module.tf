@@ -21,3 +21,7 @@ module "mlflow_instance" {
 module "application_instance" {
   source = "./application_instance"
 }
+
+module "eks_cluster" {
+  source = "./eks_cluster"
+}
