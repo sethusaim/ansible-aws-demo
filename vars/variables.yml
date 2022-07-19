@@ -2,3 +2,14 @@ mlflow:
   env_name: YOUR_ENV_NAME
   username: YOUR_USERNAME
   password: YOUR_PASSWORD
+
+application:
+  cluster_name: YOUR_CLUSTER_NAME
+  username: YOUR_APP_USERNAME
+  password: YOUR_APP_PASSWORD
+
+tekton:
+  namespace: YOUR_TEKTON_NAMESPACE
+
+argcd:
+  password: YOUR_ARGOCD_PASSWORD
