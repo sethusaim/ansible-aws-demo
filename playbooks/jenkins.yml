@@ -22,7 +22,7 @@
       become: true
 
     - name: Install Jenkins
-      apt: 
+      apt:
         name: jenkins
         update_cache: yes
         become: true

@@ -15,7 +15,7 @@
 
     - name: Install awscli
       become: true
-      apt: 
+      apt:
         name: awscli
         state: present
 
@@ -38,14 +38,14 @@
         extra_args: --upgrade
 
     - name: Check whether aws creds folder
-      stat: 
+      stat:
         path: /home/ubuntu/.aws
-      register: aws_creds_folder 
+      register: aws_creds_folder
 
     - name: Setup aws creds
       block:
         - name: Make directory for aws creds
-          shell: 'mkdir /home/ubuntu/.aws'
+          shell: "mkdir /home/ubuntu/.aws"
 
         - name: Copy AWS creds
           ansible.builtin.copy:
@@ -62,10 +62,10 @@
 
     - name: Get kubectl binary
       become: true
-      get_url: 
+      get_url:
         url: https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl
         dest: /usr/local/bin/kubectl
-    
+
     - name: Set execution permissions for kubectl
       become: true
       file:
@@ -85,7 +85,7 @@
 
     - name: Get nodes from kubectl
       become: false
-      shell: 'kubectl get nodes'
+      shell: "kubectl get nodes"
       register: kubectl_nodes
 
     - debug:
@@ -108,7 +108,7 @@
       shell: echo "deb http://ppa.launchpad.net/tektoncd/cli/ubuntu eoan main"|sudo tee /etc/apt/sources.list.d/tektoncd-ubuntu-cli.list
 
     - name: Update using apt
-      apt: 
+      apt:
         update_cache: yes
 
     - name: Install tektoncd cli
@@ -118,21 +118,21 @@
         state: present
 
     - name: Check tekton version
-      shell: 'tkn version'
+      shell: "tkn version"
       register: tekton_version
 
     - debug:
         var: tekton_version.stdout
 
-    # # - name: Check existence of tekton namespace 
+    # # - name: Check existence of tekton namespace
 
     - name: Install tekton pipelines
       become: false
-      shell: 'kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml'
+      shell: "kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml"
 
     - name: Install tekton dashboard
       become: false
-      shell: 'kubectl apply --filename https://github.com/tektoncd/dashboard/releases/latest/download/tekton-dashboard-release.yaml'
+      shell: "kubectl apply --filename https://github.com/tektoncd/dashboard/releases/latest/download/tekton-dashboard-release.yaml"
 
     - name: Patch load balancer to tekton dashboard
       become: false
@@ -143,8 +143,8 @@
 
     - name: Get load balancer url of tekton dashboard
       become: false
-      shell: 'kubectl -n tekton-pipelines get svc tekton-dashboard'
+      shell: "kubectl -n tekton-pipelines get svc tekton-dashboard"
       register: tekton_load_balancer_url
 
-    - debug:  
+    - debug:
         var: tekton_load_balancer_url.stdout
