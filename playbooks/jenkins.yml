@@ -34,10 +34,10 @@
 
     - name: Get Jenkins initial password
       shell: "sudo cat /var/lib/jenkins/secrets/initialAdminPassword"
-      register: command_output
+      register: jenkins_initial_password
 
     - debug:
-        var: command_output.stdout_lines
+        var: jenkins_initial_password.stdout
 
     - name: Get convenience script
       shell: "curl -fsSL https://get.docker.com -o get-docker.sh"
@@ -50,10 +50,10 @@
 
     - name: Get docker version
       shell: "docker --version"
-      register: command_output
+      register: docker_version
 
     - debug:
-        var: command_output.stdout_lines
+        var: docker_version.stdout
 
     - name: Update using apt-get
       become: true
@@ -93,7 +93,7 @@
 
     - name: Check Terraform version
       shell: "terraform --version"
-      register: command_output
+      register: terraform_version
 
     - debug:
-        var: command_output.stdout_lines
+        var: terraform_version.stdout

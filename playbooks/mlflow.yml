@@ -16,7 +16,7 @@
     - name: Check whether conda folder exists or not
       stat:
         path: /home/ubuntu/anaconda3
-      register: register_name
+      register: anaconda_folder
 
     - name: Setup Anaconda3
       block:
@@ -80,12 +80,12 @@
 
         - name: Check conda version
           shell: "/home/ubuntu/anaconda3/bin/conda --version"
-          register: command_output
+          register: conda_version
           args:
             executable: /usr/bin/bash
 
         - debug:
-            var: command_output.stdout_lines
+            var: conda_version.stdout
 
         - name: Remove downloaded conda init file
           file:
@@ -100,7 +100,7 @@
         - name: Reboot instance
           ansible.builtin.reboot:
 
-      when: register_name.stat.exists == False
+      when: anaconda_folder.stat.exists == False
       become: true
 
     - name: Create mlflow environment
