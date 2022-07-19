@@ -18,7 +18,7 @@
         name: python3-pip
         state: present
 
-    - name: Install boto3 and awscli
+    - name: Install boto3
       become: true
       ansible.builtin.pip:
         name: boto3
@@ -179,47 +179,6 @@
         name: awscli
         state: present
 
-    - name: Install pip3
-      apt:
-        name: python3-pip
-        state: present
-
-    - name: Install boto3
-      become: true
-      ansible.builtin.pip:
-        name: boto3
-        state: present
-
-    - name: Install awscli by using --upgrade option
-      become: true
-      ansible.builtin.pip:
-        name: awscli
-        state: present
-        extra_args: --upgrade
-
-    - name: Check whether aws creds folder
-      stat:
-        path: /home/ubuntu/.aws
-      register: aws_creds_folder
-
-    - name: Setup aws creds
-      block:
-        - name: Make directory for aws creds
-          shell: "mkdir /home/ubuntu/.aws"
-
-        - name: Copy AWS creds
-          ansible.builtin.copy:
-            src: /home/ubuntu/.aws/credentials
-            dest: /home/ubuntu/.aws/credentials
-
-        - name: Copy AWS config file
-          ansible.builtin.copy:
-            src: /home/ubuntu/.aws/config
-            dest: /home/ubuntu/.aws/config
-
-      when: aws_creds_folder.stat.exists == False
-      become: true
-
     - name: Get kubectl binary
       become: true
       get_url:
@@ -233,19 +192,19 @@
         mode: +x
 
     - name: Get kubectl version
-      shell: "kubectl version --short --client"
+      shell: kubectl version --short --client
       register: kubectl_version
 
     - debug:
         var: kubectl_version.stdout
 
     - name: Update kubeconfig file
-      shell: "aws eks update-kubeconfig --name '{{k8s.cluster_name}}'"
+      shell: aws eks update-kubeconfig --name '{{k8s.cluster_name}}'
       become: false
 
     - name: Get nodes from kubectl
       become: false
-      shell: "kubectl get nodes"
+      shell: kubectl get nodes
       register: kubectl_nodes
 
     - debug:
