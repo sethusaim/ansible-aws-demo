@@ -19,7 +19,6 @@
         url: https://pkg.jenkins.io/debian-stable/jenkins.io.key 
         state: present
       
-
     - name: Configure Jenkins Repositry
       become: true
       apt_repository: 
@@ -40,6 +39,7 @@
     - name: Get Jenkins initial password
       shell: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
       register: jenkins_initial_password
+      run_once: true
 
     - debug:
         var: jenkins_initial_password.stdout
