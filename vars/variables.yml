@@ -4,10 +4,10 @@ mlflow:
   password: YOUR_PASSWORD
 
 application:
-  username: YOUR_APP_USERNAME
-  password: YOUR_APP_PASSWORD
+  username: sethusai
+  password: sethusai2056
 
 k8s:
-  cluster_name: YOUR_CLUSTER_NAME
+  cluster_name: terraform-eks
   argocd:
-    password: YOUR_ARGOCD_PASSWORD
+    password: sethusai2056

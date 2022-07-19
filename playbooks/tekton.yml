@@ -20,9 +20,9 @@
     - name: Install jq
       become: true
       apt:
-        name: jg
+        name: jq
         state: present
-        
+
     - name: Get load balancer url of tekton dashboard
       become: false
       shell: kubectl get svc tekton-dashboard -n tekton-pipelines -o json | jq .status.loadBalancer.ingress[0].hostname

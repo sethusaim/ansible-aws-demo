@@ -10,13 +10,13 @@ module "ansible_instance" {
   source = "./ansible_instance"
 }
 
-module "jenkins_instance" {
-  source = "./jenkins_instance"
-}
+# module "jenkins_instance" {
+#   source = "./jenkins_instance"
+# }
 
-module "mlflow_instance" {
-  source = "./mlflow_instance"
-}
+# module "mlflow_instance" {
+#   source = "./mlflow_instance"
+# }
 
 module "application_instance" {
   source = "./application_instance"
