@@ -1,4 +1,4 @@
-- name: Setup Jenkins 
+- name: Setup Jenkins
   import_playbook: ./jenkins.yml
 
 - name: Setup MLFlow
@@ -6,3 +6,6 @@
 
 - name: Setup Application
   import_playbook: ./application.yml
+
+- name: Setup Tekton
+  import_playbook: ./tekton.yml
