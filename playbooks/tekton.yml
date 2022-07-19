@@ -1,16 +1,14 @@
 - name: Setup Tekton in application instance
   hosts: Application_Group
   become: true
-  vars_files:
-    - /home/ubuntu/vars/variables.yml
   tasks:
     - name: Install tekton pipelines
       become: false
-      shell: "kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml"
+      shell: kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
 
     - name: Install tekton dashboard
       become: false
-      shell: "kubectl apply --filename https://github.com/tektoncd/dashboard/releases/latest/download/tekton-dashboard-release.yaml"
+      shell: kubectl apply --filename https://github.com/tektoncd/dashboard/releases/latest/download/tekton-dashboard-release.yaml
 
     - name: Patch load balancer to tekton dashboard
       become: false
@@ -19,9 +17,15 @@
     - name: Wait till load balancer ip address is available
       shell: sleep 10
 
+    - name: Install jq
+      become: true
+      apt:
+        name: jg
+        state: present
+        
     - name: Get load balancer url of tekton dashboard
       become: false
-      shell: "kubectl -n tekton-pipelines get svc tekton-dashboard"
+      shell: kubectl get svc tekton-dashboard -n tekton-pipelines -o json | jq .status.loadBalancer.ingress[0].hostname
       register: tekton_load_balancer_url
 
     - debug:
