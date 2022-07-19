@@ -1,7 +1,0 @@
-
-
-argocd login {{ ansible_host }}:{{ argocd_k8s_https_nodeport.stdout }} --username {{ argocd_admin_name }} --password {{ argocd_current_admin_password }} --insecure
-
-
-argocd account update-password --current-password {{ argocd_current_admin_password }} --new-password {{ argocd_new_admin_password }} --insecure
-
