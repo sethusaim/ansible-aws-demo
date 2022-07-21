@@ -1,4 +1,4 @@
-- name: Setup Tekton cli
+- name: Setup Tekton cli for AWS EKS cluster
   hosts: Jenkins_Group
   become: true
   tasks: 
