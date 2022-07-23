@@ -8,7 +8,7 @@ pipeline {
       }
 
       steps {
-        sshagent(['ssh_key']) {
+        sshagent(['ansible_ssh_key']) {
           sh 'ssh -o StrictHostKeyChecking=no -l ubuntu ANSIBLE_IP wget https://raw.githubusercontent.com/sethusaim/Ansible-AWS-Demo/main/run_ansible.sh'
 
           sh 'ssh -o StrictHostKeyChecking=no -l ubuntu ANSIBLE_IP bash run_ansible.sh'
