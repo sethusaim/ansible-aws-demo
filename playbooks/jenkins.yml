@@ -39,11 +39,8 @@
     - name: Get Jenkins initial password
       shell: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
       register: jenkins_initial_password
-      run_once: true
-
-    - debug:
-        var: jenkins_initial_password.stdout
-
+      run_once: yes
+      
     - name: Get convenience script
       shell: curl -fsSL https://get.docker.com -o get-docker.sh
 
@@ -52,13 +49,6 @@
 
     - name: Set permission for ubuntu user
       shell: sudo usermod -aG docker ubuntu
-
-    - name: Get docker version
-      shell: docker --version
-      register: docker_version
-
-    - debug:
-        var: docker_version.stdout
 
     - name: Update using apt-get
       become: true
@@ -96,9 +86,5 @@
         state: present
         force_apt_get: yes
 
-    - name: Check Terraform version
-      shell: terraform --version
-      register: terraform_version
-
     - debug:
-        var: terraform_version.stdout
+        var: jenkins_initial_password.stdout
