@@ -1,5 +1,5 @@
 - name: Setup Tekton cli for AWS EKS cluster
-  hosts: Jenkins_Group
+  hosts: Application_Group
   become: true
   tasks: 
     - name: Install boto3
