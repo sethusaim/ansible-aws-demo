@@ -68,20 +68,9 @@
       shell: kubectl version --short --client
       register: kubectl_version
 
-    - debug:
-        var: kubectl_version.stdout
-
     - name: Update kubeconfig file
       shell: aws eks update-kubeconfig --name '{{k8s.cluster_name}}'
       become: false
-
-    - name: Get nodes from kubectl
-      become: false
-      shell: kubectl get nodes
-      register: kubectl_nodes
-
-    - debug:
-        var: kubectl_nodes.stdout
 
     - name: Update using apt
       apt:
@@ -108,10 +97,3 @@
       apt:
         name: tektoncd-cli
         state: present
-
-    - name: Check tekton version
-      shell: "tkn version"
-      register: tekton_version
-
-    - debug:
-        var: tekton_version.stdout
