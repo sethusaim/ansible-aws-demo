@@ -80,12 +80,8 @@
 
         - name: Check conda version
           shell: "/home/ubuntu/anaconda3/bin/conda --version"
-          register: conda_version
           args:
             executable: /usr/bin/bash
-
-        - debug:
-            var: conda_version.stdout
 
         - name: Remove downloaded conda init file
           file:
