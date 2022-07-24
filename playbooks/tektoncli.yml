@@ -55,7 +55,7 @@
     - name: Get kubectl binary
       become: true
       get_url:
-        url: https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl
+        url: curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectls
         dest: /usr/local/bin/kubectl
 
     - name: Set execution permissions for kubectl
@@ -66,7 +66,6 @@
 
     - name: Get kubectl version
       shell: kubectl version --short --client
-      register: kubectl_version
 
     - name: Update kubeconfig file
       shell: aws eks update-kubeconfig --name '{{k8s.cluster_name}}'
