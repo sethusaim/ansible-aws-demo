@@ -42,10 +42,10 @@
       run_once: yes
       
     - name: Setup docker 
-      import_playbook: ./jenkins/docker.yml
+      include_tasks: docker.yml
 
     - name: Setup terraform
-      import_playbook: ./jenkins/terraform.yml
+      include_tasks: terraform.yml
       
     - debug:
-      msg: "Jenkins initial password : {{jenkins_initial_password}}"
+        msg: "Jenkins initial password : {{jenkins_initial_password}}"
