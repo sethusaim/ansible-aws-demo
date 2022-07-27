@@ -4,9 +4,9 @@
   vars_files:
     - /home/ubuntu/vars/variables.yml
   tasks:
-    # - name: Create argocd namespace
-    #   become: false
-    #   shell: kubectl create namespace argocd
+    - name: Create argocd namespace
+      become: false
+      shell: kubectl create namespace argocd
 
     - name: Install ArgoCD manifest files
       become: false
@@ -47,7 +47,7 @@
       file:
         path: /usr/local/bin/argocd
         mode: +x
-        
+
     - name: Login to argocd server with initial password
       become: false
       shell: argocd login {{ argocd_url.stdout }} --username {{ k8s.argocd.username }} --password {{ argocd_init_password.stdout }} --insecure
