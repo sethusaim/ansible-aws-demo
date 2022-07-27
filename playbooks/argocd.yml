@@ -57,4 +57,4 @@
       run_once: yes
 
     - debug:
-      msg: "ArgoCD url is {{argocd_url.stdout}}"
+        msg: "ArgoCD url is {{argocd_url.stdout}}"
