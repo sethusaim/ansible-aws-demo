@@ -57,7 +57,9 @@
         state: present
 
     - name: Get kubectl binary
-      shell: curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl
+      get_url:
+        url: https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
+        dest: /usr/local/bin/kubectl
 
     - name: Set execution permissions for kubectl
       file:
