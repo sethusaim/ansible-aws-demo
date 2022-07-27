@@ -1,7 +1,13 @@
 - name: Setup Tekton cli for AWS EKS cluster
   hosts: Application_Group
   become: true
-  tasks: 
+  tasks:
+    - name: Install pip3
+      apt:
+        name: python3-pip
+        state: present
+        update_cache: true
+
     - name: Install boto3
       ansible.builtin.pip:
         name: boto3
@@ -32,7 +38,6 @@
           ansible.builtin.copy:
             src: /home/ubuntu/.aws/config
             dest: /home/ubuntu/.aws/config
-
       when: aws_creds_folder.stat.exists == False
 
     - name: Update using apt  
@@ -56,14 +61,13 @@
         url: curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
         dest: /usr/local/bin/kubectl
 
+    # - name: Get kubectl binary
+    #   shell: curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl -o /usr/bin/kubectl
+
     - name: Set execution permissions for kubectl
       file:
         path: /usr/local/bin/kubectl
         mode: +x
-
-    - name: Get kubectl version
-      become: false
-      shell: kubectl version --short --client
 
     - name: Update kubeconfig file
       become: false
