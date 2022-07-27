@@ -7,8 +7,6 @@
 
 demo
 
-mlflow
-
 mlflow-tracking.service
 
 # Crash log files
