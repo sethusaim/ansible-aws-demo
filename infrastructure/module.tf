@@ -7,19 +7,19 @@ terraform {
 }
 
 module "ansible_instance" {
-  source = "./ansible_instance"
+  source = "./ec2_instances/ansible_instance"
 }
 
 module "jenkins_instance" {
-  source = "./jenkins_instance"
+  source = "./ec2_instances/jenkins_instance"
 }
 
 module "mlflow_instance" {
-  source = "./mlflow_instance"
+  source = "./ec2_instances/mlflow_instance"
 }
 
 module "application_instance" {
-  source = "./application_instance"
+  source = "./ec2_instances/application_instance"
 }
 
 module "eks_cluster" {
