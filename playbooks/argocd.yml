@@ -50,7 +50,7 @@
 
     - name: Login to argocd server with initial password
       become: false
-      shell: argocd login {{ argocd_url.stdout }} --username {{ k8s.argocd.username }} --password {{ argocd_init_password.stdout }} --insecure
+      shell: argocd login {{argocd_url.stdout}} --username {{ k8s.argocd.username }} --password {{ argocd_init_password.stdout }} --insecure
       run_once: yes
     
     - name: Update argocd server password
