@@ -7,11 +7,11 @@
 # - name: Setup MLFlow
 #   import_playbook: mlflow.yml
 
-- name: Setup MLFlow
-  import_playbook: ./mlflow/mlflow.yml
+# - name: Setup MLFlow
+#   import_playbook: ./mlflow/mlflow.yml
 
-- name: Setup Application
-  import_playbook: application.yml
+# - name: Setup Application
+#   import_playbook: application.yml
 
 # - name: Setup EKS cluster
 #   import_playbook: ./k8s_cluster/main.yml
