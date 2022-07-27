@@ -7,11 +7,13 @@
     - name: Create argocd namespace
       become: false
       shell: kubectl create namespace argocd
-      run_once: yes
 
     - name: Install ArgoCD manifest files
       become: false
       shell: kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+    - name: Wait till all pods reach running status
+      shell: sleep 20
 
     - name: Patch load balancer to argocd server
       become: false
@@ -48,7 +50,7 @@
         mode: +x
 
     - name: Login to argocd server with initial password
-      shell: argocd login {{argocd_url}} --username '{{k8s.argocd.username}}' --password {{argocd_init_password}} --insecure
+      shell: argocd login {{argocd_url.stdout}} --username '{{k8s.argocd.username}}' --password {{argocd_init_password}} --insecure
       run_once: yes
     
     - name: Update argocd server password
