@@ -1,7 +1,11 @@
 - name: Setup Terraform
   hosts: Jenkins_Group
   become: true
-  tasks:    
+  tasks:
+    - name: Update using apt
+      apt:
+        update_cache: true
+
     - name: Update using apt-get
       apt:
         update_cache: true
