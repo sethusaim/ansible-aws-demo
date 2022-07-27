@@ -1,0 +1,11 @@
+- name: Setup Tekton cli
+  import_playbook: ./k8s_cluster/tektoncli.yml
+
+- name: Setup Tekton pipelines
+  import_playbook: ./k8s_cluster/tekton.yml
+
+- name: Setup ArgoCD
+  import_playbook: ./k8s_cluster/argocd.yml
+
+- name: Setup K8s Monitoring
+  import_playbook: ./k8s_cluster/monitoring.yml

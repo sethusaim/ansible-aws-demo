@@ -1,0 +1,51 @@
+- name: Setup Jenkins
+  hosts: Jenkins_Group
+  become: true
+  tasks:
+    - name: Update apt
+      become: true
+      apt:
+        update_cache: yes
+
+    - name: Install Java
+      become: true
+      apt:
+        name: openjdk-11-jdk
+        state: present
+
+    - name: Add Jenkins Repositry Key
+      become: true
+      apt_key: 
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io.key 
+        state: present
+      
+    - name: Configure Jenkins Repositry
+      become: true
+      apt_repository: 
+        repo: 'deb https://pkg.jenkins.io/debian-stable binary/' 
+        state: present
+
+    - name: Install Jenkins
+      apt:
+        name: jenkins
+        update_cache: yes
+        become: true
+
+    - name: Check Jenkins Installation
+      service:
+        name: jenkins
+        state: started
+
+    - name: Get Jenkins initial password
+      shell: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+      register: jenkins_initial_password
+      run_once: yes
+      
+    - name: Setup docker 
+      import_playbook: ./jenkins/docker.yml
+
+    - name: Setup terraform
+      import_playbook: ./jenkins/terraform.yml
+      
+    - debug:
+      msg: "Jenkins initial password : {{jenkins_initial_password}}"
