@@ -11,4 +11,4 @@ k8s:
   cluster_name: terraform-eks
   argocd:
     username: admin
-    password: testing
+    password: testing2056
