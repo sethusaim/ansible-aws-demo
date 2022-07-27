@@ -3,7 +3,6 @@
   become: true
   tasks:    
     - name: Update using apt-get
-      become: true
       apt:
         update_cache: true
         force_apt_get: yes
@@ -26,13 +25,11 @@
       shell: sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 
     - name: Update using apt-get
-      become: true
       apt:
         update_cache: true
         force_apt_get: yes
 
     - name: Install Terraform
-      become: true
       apt:
         name: terraform
         state: present

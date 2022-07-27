@@ -21,7 +21,6 @@
       shell: sleep 5
 
     - name: Install jq
-      become: true
       apt:
         name: jq
         state: present

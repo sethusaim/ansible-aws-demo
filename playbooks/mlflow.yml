@@ -70,7 +70,6 @@
             dest: /home/ubuntu/conda_init.txt
 
         - name: Put conda init data in bashrc file
-          become: true
           shell: cat /home/ubuntu/conda_init.txt >> /home/ubuntu/.bashrc
           args:
             executable: /usr/bin/bash
@@ -92,8 +91,7 @@
           ansible.builtin.reboot:
 
       when: anaconda_folder.stat.exists == False
-      become: true
-
+      
     - name: Create mlflow environment
       shell: "/home/ubuntu/anaconda3/bin/conda create -n '{{mlflow.env_name}}' python=3.7.6 -y"
       args:

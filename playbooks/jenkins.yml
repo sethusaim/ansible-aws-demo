@@ -3,24 +3,24 @@
   become: true
   tasks:
     - name: Update apt
-      become: true
+      apt:
+        update_cache: yes
+
+    - name: Update using apt-get
       apt:
         update_cache: yes
 
     - name: Install Java
-      become: true
       apt:
         name: openjdk-11-jdk
         state: present
 
     - name: Add Jenkins Repositry Key
-      become: true
       apt_key: 
         url: https://pkg.jenkins.io/debian-stable/jenkins.io.key 
         state: present
       
     - name: Configure Jenkins Repositry
-      become: true
       apt_repository: 
         repo: 'deb https://pkg.jenkins.io/debian-stable binary/' 
         state: present
