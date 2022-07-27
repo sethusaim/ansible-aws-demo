@@ -16,19 +16,23 @@
     - name: Remove the helm installer bash script
       file: 
         state: absent 
-        path: sudo sh get_helm.sh
+        path: /home/ubuntu/get_helm.sh
 
     - name: Add helm stable repo
+      become: false
       shell: helm repo add stable https://charts.helm.sh/stable
       run_once: yes
 
     - name: Add prometheus helm repo
+      become: false
       shell: helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+      run_once: yes
 
     - name: Update the helm repo
+      become: false
       shell: helm repo update
 
-    - name: Install pip3, unzip,jq
+    - name: Install pip3,unzip,jq
       apt:
         name: 
           - python3-pip
@@ -39,15 +43,15 @@
     - name: Get awscli zip file
       shell: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 
-    - name: Unzip awscli file
+    - name: Unzip awscli zip file
       shell: unzip awscliv2.zip
 
     - name: Install awscli from source
       shell: sudo ./aws/install
 
     - name: Update kubeconfig
-      shell: aws eks update-kubeconfig --name '{{k8s.cluster_name}}'
       become: false
+      shell: aws eks update-kubeconfig --name '{{k8s.cluster_name}}'
 
     - name: Create a namespace for prometheus
       become: false
@@ -55,6 +59,7 @@
       run_once: yes
 
     - name: Install the prometheus helm chart
+      become: false
       shell: helm install stable prometheus-community/kube-prometheus-stack -n monitor
       
     - name: Patch load balancer to prometheus server
