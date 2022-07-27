@@ -29,7 +29,7 @@
       apt:
         name: jenkins
 
-    - name: Check Jenkins Installation
+    - name: Start Jenkins service
       service:
         name: jenkins
         state: started
@@ -40,4 +40,4 @@
       run_once: yes
     
     - debug:
-      msg: "Jenkins initial password : {{jenkins_initial_password}}"
+        msg: "Jenkins initial password : {{jenkins_initial_password.stdout}}"
