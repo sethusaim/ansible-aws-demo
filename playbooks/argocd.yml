@@ -50,7 +50,7 @@
         mode: +x
 
     - name: Login to argocd server with initial password
-      shell: argocd login {{argocd_url.stdout}} --username '{{k8s.argocd.username}}' --password {{argocd_init_password.stdout}} --insecure
+      shell: argocd login {{ansible_host}}:{{argocd_url.stdout}} --username {{k8s.argocd.username}} --password {{argocd_init_password.stdout}} --insecure
       run_once: yes
     
     - name: Update argocd server password
