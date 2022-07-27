@@ -1,5 +1,7 @@
 - name: Setup Prometheus in EKS cluster
   hosts: Application_Group
+  vars_files:
+    - /home/ubuntu/vars/variables.yml
   become: true
   tasks:
     - name: Get the helm installer bash script
@@ -9,15 +11,16 @@
       shell: chmod 700 get_helm.sh
 
     - name: Run the helm installer bash script
-      shell: ./get_helm.sh
+      shell: bash /home/ubuntu/get_helm.sh
 
     - name: Remove the helm installer bash script
       file: 
         state: absent 
-        path: /home/ubuntu/get_helm.sh
+        path: sudo sh get_helm.sh
 
     - name: Add helm stable repo
       shell: helm repo add stable https://charts.helm.sh/stable
+      run_once: yes
 
     - name: Add prometheus helm repo
       shell: helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -25,33 +28,54 @@
     - name: Update the helm repo
       shell: helm repo update
 
-    - name: Create a namespace for monitor
-      shell: kubectl create namespace prometheus
+    - name: Install pip3, unzip,jq
+      apt:
+        name: 
+          - python3-pip
+          - unzip
+          - jq
+        state: present
+      
+    - name: Get awscli zip file
+      shell: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+    - name: Unzip awscli file
+      shell: unzip awscliv2.zip
+
+    - name: Install awscli from source
+      shell: sudo ./aws/install
+
+    - name: Update kubeconfig
+      shell: aws eks update-kubeconfig --name '{{k8s.cluster_name}}'
+      become: false
+
+    - name: Create a namespace for prometheus
+      become: false
+      shell: kubectl create namespace monitor
+      run_once: yes
 
     - name: Install the prometheus helm chart
-      shell: helm install stable prometheus-community/kube-prometheus-stack -n prometheus
-
-    - name: Patch load balancer to prometheus server 
-      shell: kubectl patch svc stable-kube-prometheus-sta-prometheus -n prometheus
+      shell: helm install stable prometheus-community/kube-prometheus-stack -n monitor
+      
+    - name: Patch load balancer to prometheus server
+      become: false 
+      shell: kubectl patch svc stable-kube-prometheus-sta-prometheus -n monitor -p '{"spec":{"type":"LoadBalancer"}}'
 
     - name: Patch load balancer to grafana server
-      shell: kubectl patch svc stable-grafana -n prometheus
+      become: false
+      shell: kubectl patch svc stable-grafana -n monitor -p '{"spec":{"type":"LoadBalancer"}}'
 
     - name: Wait till load balancer ip address is available
       shell: sleep 5
-
-    - name: Install jq
-      become: true
-      apt:
-        name: jq
-        state: present
     
     - name: Get load balancer url for grafana dashboard
-      shell: kubectl get svc stable-grafana -n prometheus -o json | jq .status.loadBalancer.ingress[0].hostname
+      become: false
+      shell: kubectl get svc stable-grafana -n monitor -o json | jq .status.loadBalancer.ingress[0].hostname
       register: grafana_url
 
     - name: Get load balancer url for prometheus dashboard
-      shell: kubectl get svc stable-grafana -n prometheus -o json | jq .status.loadBalancer.ingress[0].hostname
+      become: false
+      shell: kubectl get svc stable-grafana -n monitor -o json | jq .status.loadBalancer.ingress[0].hostname
       register: prometheus_url
 
     - debug:
