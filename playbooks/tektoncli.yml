@@ -45,7 +45,7 @@
     - name: Update using apt get
       apt:
         update_cache: yes
-        force_apt_get: true
+        force_apt_get: yes
 
     - name: Install awscli,gnupg
       become: true

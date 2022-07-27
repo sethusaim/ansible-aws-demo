@@ -11,7 +11,7 @@
     - name: Update using apt get
       apt:
         update_cache: yes
-        force_apt_get: true
+        force_apt_get: yes
 
     - name: Install pip3,nginx,gunicorn
       apt:
@@ -26,7 +26,7 @@
       apt:
         name: apache-utils
         state: present
-        force_apt_get: true
+        force_apt_get: yes
          
     - name: Initialize git
       shell: git init
