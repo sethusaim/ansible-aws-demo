@@ -1,29 +1,20 @@
-# - name: Setup Jenkins
-#   import_playbook: jenkins.yml
-
 - name: Setup Jenkins
-  import_playbook: ./jenkins/jenkins.yml
+  import_playbook: jenkins.yml
 
-# - name: Setup MLFlow
-#   import_playbook: mlflow.yml
+- name: Setup MLFlow
+  import_playbook: mlflow.yml
 
-# - name: Setup MLFlow
-#   import_playbook: ./mlflow/mlflow.yml
+- name: Setup Application
+  import_playbook: application.yml
 
-# - name: Setup Application
-#   import_playbook: application.yml
+- name: Setup Tekton cli
+  import_playbook: tektoncli.yml
 
-# - name: Setup EKS cluster
-#   import_playbook: ./k8s_cluster/main.yml
+- name: Setup Tekton
+  import_playbook: tekton.yml
 
-# - name: Setup Tekton cli
-#   import_playbook: tektoncli.yml
+- name: Setup ArgoCD
+  import_playbook: argocd.yml
 
-# - name: Setup Tekton
-#   import_playbook: tekton.yml
-
-# - name: Setup ArgoCD
-#   import_playbook: argocd.yml
-
-# - name: Setup Prometheus and Grafana
-#   import playbook: monitoring.yml
+- name: Setup Prometheus and Grafana
+  import playbook: monitoring.yml
