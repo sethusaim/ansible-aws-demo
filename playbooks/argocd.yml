@@ -11,7 +11,7 @@
 
     - name: Install ArgoCD manifest files
       become: false
-      shell: kubectl kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+      shell: kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
     - name: Patch load balancer to argocd server
       become: false
