@@ -44,16 +44,17 @@
         dest: /usr/local/bin/argocd
 
     - name: Set execution permissions for argocd cli binary file
-      become: True
       file:
         path: /usr/local/bin/argocd
         mode: +x
 
     - name: Login to argocd server with initial password
+      become: false
       shell: argocd login {{argocd_url.stdout}} --username {{k8s.argocd.username}} --password {{argocd_init_password.stdout}} --insecure
       run_once: yes
     
     - name: Update argocd server password
+      become: false
       shell: argocd account update-password --current-password {{argocd_init_password.stdout}} --new-password '{{k8s.argocd.password}}' --insecure
       run_once: yes
 
