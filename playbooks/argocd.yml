@@ -49,7 +49,7 @@
         mode: +x
 
     - name: Correct the loadbalancer url
-      shell: echo ${argocd_url.stdout/\/ } >> url
+      shell: echo ${argocd_url.stdout/\/}
       register: url
         
     - name: Login to argocd server with initial password
