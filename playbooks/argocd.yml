@@ -35,7 +35,6 @@
     - name: Get argocd server initial password
       become: false
       shell: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
-      run_once: yes
       register: argocd_init_password
       
     - name: Get the argocd cli binary file
@@ -53,8 +52,8 @@
       register: login_status
       until: "login_status is not failed"
       retries: 10
-      delay: 20
-      
+      delay: 10
+
     - name: Update argocd server password
       shell: argocd account update-password --current-password {{ argocd_init_password.stdout }} --new-password '{{ k8s.argocd.password }}' --insecure
     
