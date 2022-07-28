@@ -13,7 +13,7 @@
       shell: kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
     - name: Wait till all pods reach running status
-      shell: sleep 60
+      shell: sleep 90
 
     - name: Patch load balancer to argocd server
       become: false
