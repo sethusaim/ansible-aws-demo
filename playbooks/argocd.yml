@@ -53,11 +53,8 @@
       register: login_status
       until: "login_status is not failed"
       retries: 10
-      delay: 10
-
-    - debug:
-        var: login_status
-
+      delay: 20
+      
     - name: Update argocd server password
       shell: argocd account update-password --current-password {{ argocd_init_password.stdout }} --new-password '{{ k8s.argocd.password }}' --insecure
     
