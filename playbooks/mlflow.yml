@@ -89,7 +89,6 @@
 
         - name: Reboot instance
           ansible.builtin.reboot:
-
       when: anaconda_folder.stat.exists == False
       
     - name: Create mlflow environment
