@@ -47,12 +47,16 @@
       file:
         path: /usr/local/bin/argocd
         mode: +x
+
+    - name: Correct the loadbalancer url
+      shell: echo ${argocd_url.stdout/\/ } >> url
+      register: url
         
     - name: Login to argocd server with initial password
-      shell: argocd login {{ argocd_loadbalancer_url.stdout }} --username {{ k8s.argocd.username }} --password {{ argocd_init_password.stdout }} --insecure
+      shell: argocd login {{ url.stdout }} --username {{ k8s.argocd.username }} --password {{ argocd_init_password.stdout }} --insecure
     
     - name: Update argocd server password
       shell: argocd account update-password --current-password {{ argocd_init_password.stdout }} --new-password '{{ k8s.argocd.password }}' --insecure
     
     - debug:
-        msg: "ArgoCD url is {{ argocd_loadbalancer_url.stdout }}"
+        msg: "ArgoCD url is {{ url.stdout }}"
