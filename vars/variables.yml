@@ -8,7 +8,7 @@ application:
   password: YOUR_APP_PASSWORD
 
 k8s:
-  cluster_name: terraform-eks
+  cluster_name: YOUR_EKS_CLUSTER_NAME
   argocd:
     username: admin
-    password: testing2056
+    password: YOUR_ARGOCD_PASSWORD
