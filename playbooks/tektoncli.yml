@@ -4,6 +4,15 @@
     - /home/ubuntu/vars/variables.yml
   become: true
   tasks:
+    - name: Update using apt
+      apt:
+        update_cache: yes
+
+    - name: Update using apt-get
+      apt:
+        update_cache: yes
+        force_apt_get: yes 
+
     - name: Install pip3
       apt:
         name: python3-pip
