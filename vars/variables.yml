@@ -11,4 +11,4 @@ k8s:
   cluster_name: YOUR_EKS_CLUSTER_NAME
   argocd:
     username: admin
-    password: YOUR_ARGOCD_PASSWORD
+    password: testing2056
