@@ -17,7 +17,7 @@
 
     - name: Patch load balancer to argocd server
       become: false
-      shell: "kubectl patch svc argocd-server -n argocd -p "{"spec": {"ports": [{"name": "custom","port": 9096,"protocol":"TCP","targetPort": 8080}],"type": "LoadBalancer"}}""
+      shell: kubectl patch svc argocd-server -n argocd -p {'spec':{"ports":[{"name":"custom","port":9096,"protocol":"TCP","targetPort":8080}],"type":"LoadBalancer"}}
 
     - name: Wait till load balancer ip address is available
       shell: sleep 5
