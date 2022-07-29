@@ -27,24 +27,26 @@
         name: apache-utils
         state: present
         force_apt_get: yes
-         
-    - name: Initialize git
+
+    - name: Initialize Git repo
       shell: git init
       args:
         executable: /usr/bin/bash
 
-    - name: Configure git
+    - name: Configure Git repo
       shell: git config --global --add safe.directory /home/ubuntu
 
-    # - name: Remove remote origin
-    #   shell: git remote remove origin
-    #   args:
-    #     executable: /usr/bin/bash
+    - name: Get remote origin status
+      shell: git remote show
+      register: origin_status
 
     - name: Add remote origin
-      shell: git remote add origin https://github.com/sethusaim/Wafer-Fault-Kubernetes.git
-      args:
-        executable: /usr/bin/bash
+      block:
+        - name: Add remote origin
+          shell: git remote add origin https://github.com/sethusaim/Wafer-Fault-Kubernetes.git
+          args:
+            executable: /usr/bin/bash
+      when: origin_status.stdout != "origin"
 
     - name: Fetch origin
       shell: git fetch origin
