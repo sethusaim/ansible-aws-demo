@@ -40,5 +40,4 @@ resource "aws_security_group" "mlflow_security_group" {
   tags = {
     Name = var.mlflow_sg_group_name
   }
-
 }
