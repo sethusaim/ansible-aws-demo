@@ -1,0 +1,112 @@
+- name: MLFlow Installation
+  hosts: Application_Group
+  vars_files:
+    - /home/ubuntu/vars/variables.yml
+  become: true
+  tasks:
+    - name: Update using apt
+      apt:
+        update_cache: true
+
+    - name: Update using apt-get
+      apt:
+        update_cache: true
+        force_apt_get: yes
+
+    - name: Check whether conda folder exists or not
+      stat:
+        path: /home/ubuntu/anaconda3
+      register: anaconda_folder
+
+    - name: Setup Anaconda3
+      block:
+        - name: Get anaconda bash script
+            get_url:
+            url: https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh
+            dest: /home/ubuntu/install-anaconda.sh
+
+        - name: Create conda folder
+          become: True
+          file:
+            path: /home/ubuntu/anaconda3
+              state: directory
+              owner: ubuntu
+              mode: 755
+              recurse: yes
+
+        - name: Run the conda installer
+          shell: bash /home/ubuntu/install-anaconda.sh -b -u -p /home/ubuntu/anaconda3
+          args:
+            executable: /usr/bin/bash
+
+        - name: Remove the conda installer
+          file:
+            state: absent
+            path: /home/ubuntu/install-anaconda.sh
+
+        - name: Add anaconda bin to path
+          become: True
+          shell: echo 'export PATH=/home/ubuntu/anaconda3/bin:$PATH' >> /etc/profile
+          args:
+            executable: /usr/bin/bash
+
+        - name: Set read permission for all
+          become: True
+          file:
+            path: /home/ubuntu/anaconda3
+            mode: +r
+            recurse: yes
+
+        - name: Set execution permission for all
+          become: True
+          file:
+            path: /home/ubuntu/anaconda3/bin
+            mode: +x
+            recurse: yes
+
+        - name: Get conda init data
+          get_url:
+            url: https://raw.githubusercontent.com/sethusaim/Ansible-AWS-Demo/main/scripts/conda_init.txt
+            dest: /home/ubuntu/conda_init.txt
+
+        - name: Put conda init data in bashrc file
+          shell: cat /home/ubuntu/conda_init.txt >> /home/ubuntu/.bashrc
+          args:
+            executable: /usr/bin/bash
+
+        - name: Reboot instance
+          ansible.builtin.reboot:
+
+        - name: Remove downloaded conda init file
+          file:
+            state: absent
+            path: /home/ubuntu/conda_init.txt
+
+        - name: Initialize conda to use bash
+          shell: "/home/ubuntu/anaconda3/bin/conda init bash"
+            args:
+              executable: /usr/bin/bash
+
+        - name: Reboot instance
+          ansible.builtin.reboot:
+      when: anaconda_folder.stat.exists == False
+      
+    - name: Create mlflow environment
+      shell: "/home/ubuntu/anaconda3/bin/conda create -n mlflow python=3.7.6 -y"
+      args:
+        executable: /usr/bin/bash
+
+    - name: Get current environment
+      shell: echo $CONDA_DEFAULT_ENV
+      register: current_env
+
+    - debug:
+        var: current_env
+
+    # - name: Activate environment
+    #   block:
+    #     - name: Activate mlflow environment
+    #       shell: "source /home/ubuntu/anaconda3/bin/activate '{{mlflow.env_name}}'"
+    #       args:
+    #         executable: /usr/bin/bash
+    #   when: current_env != mlflow
