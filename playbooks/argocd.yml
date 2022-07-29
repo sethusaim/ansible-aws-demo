@@ -58,4 +58,4 @@
       shell: argocd account update-password --current-password {{ argocd_init_password.stdout }} --new-password '{{ k8s.argocd.password }}' --insecure
     
     - debug:
-        msg: "ArgoCD url is {{ argocd_loadbalancer_url.stdout }}"
+        msg: "Open with port 9096,ArgoCD url is {{ argocd_loadbalancer_url.stdout }}"
