@@ -7,7 +7,7 @@
 
 demo
 
-mlflow-tracking.service
+demo.sh
 
 # Crash log files
 crash.log
