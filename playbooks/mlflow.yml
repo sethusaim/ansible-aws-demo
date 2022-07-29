@@ -26,7 +26,6 @@
             dest: /home/ubuntu/install-anaconda.sh
 
         - name: Create conda folder
-          become: True
           file:
             path: /home/ubuntu/anaconda3
             state: directory
@@ -45,20 +44,17 @@
             path: /home/ubuntu/install-anaconda.sh
 
         - name: Add anaconda bin to path
-          become: True
           shell: echo 'export PATH=/home/ubuntu/anaconda3/bin:$PATH' >> /etc/profile
           args:
             executable: /usr/bin/bash
 
         - name: Set read permission for all
-          become: True
           file:
             path: /home/ubuntu/anaconda3
             mode: +r
             recurse: yes
 
         - name: Set execution permission for all
-          become: True
           file:
             path: /home/ubuntu/anaconda3/bin
             mode: +x
