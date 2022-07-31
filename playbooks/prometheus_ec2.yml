@@ -2,24 +2,47 @@
   hosts: Prometheus_Group
   become: true
   tasks:
+    - name: Check whether prometheus user exists or not
+      shell: id prometheus > /dev/null 2>&1 || echo False
+      register: user_exists  
+
     - name: Add prometheus user with no home directory
-      shell: sudo useradd --no-create-home prometheus
+      block:
+        - name: Add prometheus user with no home directory
+          shell: sudo useradd --no-create-home prometheus
+      when: user_exists == False
+
+    - name: Check whether /etc/prometheus folder
+      stat:
+        path: /etc/prometheus
+      register: etc_prometheus_folder
 
     - name: Create /etc/prometheus folder
-      file:
-        path: /etc/prometheus
-        state: directory
-        owner: ubuntu
-        mode: 755
-        recurse: yes
+      block:
+        - name: Create /etc/prometheus folder
+          file:
+            path: /etc/prometheus
+            state: directory
+            owner: ubuntu
+            mode: 755
+            recurse: yes
+      when: etc_prometheus_folder.stat.exists == False
+
+    - name: Check whether /var/lib/prometheus folder exists or not
+      stat: 
+        path: /var/lib/prometheus
+      register: var_lib_prometheus_folder
 
     - name: Create /var/lib/prometheus folder
-      file:
-        path: /var/lib/prometheus
-        state: directory
-        owner: ubuntu
-        mode: 755
-        recurse: yes
+      block:
+        - name: Create /var/lib/prometheus folder
+          file:
+            path: /var/lib/prometheus
+            state: directory
+            owner: ubuntu
+            mode: 755
+            recurse: yes
+      when: var_lib_prometheus_folder.stats.exists == False
 
     - name: Get and unarchive tar file
       ansible.builtin.unarchive:
