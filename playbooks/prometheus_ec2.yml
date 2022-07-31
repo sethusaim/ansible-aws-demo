@@ -3,14 +3,14 @@
   become: true
   tasks:
     - name: Check whether prometheus user exists or not
-      shell: id prometheus > /dev/null 2>&1 || echo False
+      shell: id prometheus > /dev/null 2>&1 || echo not-exists
       register: user_exists  
 
     - name: Add prometheus user with no home directory
       block:
         - name: Add prometheus user with no home directory
           shell: sudo useradd --no-create-home prometheus
-      when: user_exists == False
+      when: user_exists == not-exists
 
     - name: Check whether /etc/prometheus folder
       stat:
@@ -44,11 +44,13 @@
             recurse: yes
       when: var_lib_prometheus_folder.stat.exists == False
 
-    - name: Get and unarchive tar file
-      ansible.builtin.unarchive:
-        src: https://github.com/prometheus/prometheus/releases/download/v2.37.0/prometheus-2.37.0.linux-amd64.tar.gz
+    - name: Get the prometheus tar file
+      get_url:
+        url: https://github.com/prometheus/prometheus/releases/download/v2.19.0/prometheus-2.19.0.linux-amd64.tar.gz
         dest: /home/ubuntu
-        remote_src: yes
+
+    - name: Untar the prometheus tar file 
+      shell: tar xvfz prometheus-2.19.0.linux-amd64.tar.gz
         
     - name: Copy prometheus folder to /user/local/bin
       shell: sudo cp prometheus-2.37.0.linux-amd64/prometheus /usr/local/bin
