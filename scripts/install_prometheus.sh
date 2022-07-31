@@ -22,6 +22,7 @@ sudo rm -rf prometheus-2.19.0.linux-amd64.tar.gz prometheus-2.19.0.linux-
 
 sudo nano /etc/prometheus/prometheus.yml
 
+'''
 global:
   scrape_interval: 15s
   external_labels:
@@ -31,9 +32,10 @@ scrape_configs:
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
-
+'''
 sudo nano /etc/systemd/system/prometheus.service
 
+'''
 [Unit]
 Description=Prometheus
 Wants=network-online.target
@@ -51,6 +53,7 @@ ExecStart=/usr/local/bin/prometheus \
 
 [Install]
 WantedBy=multi-user.target
+'''
 
 sudo chown prometheus:prometheus /etc/prometheus
 
@@ -73,7 +76,7 @@ sudo systemctl enable prometheus
 ### after installing node exporter, run these in this prometheus ec2 instance
 
 sudo nano /etc/prometheus/prometheus.yml
-
+'''
 global:
   scrape_interval: 15s
   external_labels:
@@ -86,5 +89,5 @@ scrape_configs:
     static_configs:
 
       - targets: ['MACHINE-1-PUBLIC-IP:9100','MACHINE-2-PUBLIC-IP:9100']
-
+'''
 sudo systemctl restart prometheus
