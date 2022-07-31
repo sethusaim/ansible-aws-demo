@@ -14,8 +14,15 @@
         state: started
         enabled: yes
 
-    - name: Add node_exporter user with no home directory
-      shell: sudo useradd --no-create-home node_exporte
+    - name: Check whether node_exporter user exists or not
+      shell: id node_exporter > /dev/null 2>&1 || echo False
+      register: user_exists
+
+    - name: Add node_export user with no home directory
+      block:
+        - name: Add node_exporter user with no home directory
+          shell: sudo useradd --no-create-home node_exporter
+      when: user_exists == False
 
     - name: Get and unarchive the node exporter tar file
       ansible.builtin.unarchive:
