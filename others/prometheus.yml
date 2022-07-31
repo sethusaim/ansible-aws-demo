@@ -9,4 +9,4 @@ scrape_configs:
 
     static_configs:
 
-      - targets: ['MACHINE-1-PUBLIC-IP:9100','MACHINE-2-PUBLIC-IP:9100']
+      - targets: ['35.172.176.29:9100']
