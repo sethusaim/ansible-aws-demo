@@ -13,7 +13,7 @@
 
     - name: Get convenience script
       shell: curl -fsSL https://get.docker.com -o get-docker.sh
-
+      
     - name: Run the convenience script
       shell: sudo sh get-docker.sh
 

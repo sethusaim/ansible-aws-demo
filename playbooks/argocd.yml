@@ -4,6 +4,15 @@
   vars_files:
     - /home/ubuntu/vars/variables.yml
   tasks:
+    - name: Update using apt
+      apt:
+        update_cache: true
+      
+    - name: Update using apt-get
+      apt:
+        update_cache: true
+        force_apt_get: yes
+
     - name: Create argocd namespace
       become: false
       shell: kubectl create namespace argocd

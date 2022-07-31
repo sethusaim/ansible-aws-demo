@@ -114,7 +114,7 @@
     - name: Install Apache Utils
       apt:
         name: apache2-utils
-        update_cache: yes
+        update_cache: true
         force_apt_get: yes
 
     - name: Set user name and password for nginx
@@ -142,12 +142,8 @@
       systemd:
         daemon_reload: yes
 
-    - name: Enable mlflow tracking service
-      systemd:
-        name: mlflow-tracking
-        enabled: yes
-
-    - name: Start mlflow tracking service
+    - name: Start and Enable MLFlow Tracking service
       systemd:
         name: mlflow-tracking
         state: started
+        enabled: yes

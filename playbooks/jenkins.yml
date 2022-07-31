@@ -4,11 +4,11 @@
   tasks:
     - name: Update apt
       apt:
-        update_cache: yes
+        update_cache: true
 
     - name: Update using apt-get
       apt:
-        update_cache: yes
+        update_cache: true
 
     - name: Install Java
       apt:

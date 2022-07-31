@@ -6,11 +6,11 @@
   tasks:
     - name: Update using apt
       apt:
-        update_cache: yes
+        update_cache: true
 
     - name: Update using apt-get
       apt:
-        update_cache: yes
+        update_cache: true
         force_apt_get: yes 
 
     - name: Install pip3
@@ -53,11 +53,11 @@
 
     - name: Update using apt  
       apt: 
-        update_cache: yes
+        update_cache: true
 
     - name: Update using apt get
       apt:
-        update_cache: yes
+        update_cache: true
         force_apt_get: yes
 
     - name: Install awscli,gnupg
@@ -83,7 +83,7 @@
 
     - name: Update using apt
       apt:
-        update_cache: yes
+        update_cache: true
 
     - name: Add tekton keys
       shell: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3EFE0E0A2F2F60AA
@@ -93,7 +93,7 @@
 
     - name: Update using apt
       apt:
-        update_cache: yes
+        update_cache: true
 
     - name: Install tektoncd cli
       apt:

@@ -6,11 +6,11 @@
   tasks:
     - name: Update using apt
       apt:
-        update_cache: yes
+        update_cache: true
 
     - name: Update using apt get
       apt:
-        update_cache: yes
+        update_cache: true
         force_apt_get: yes
 
     - name: Install pip3,nginx,gunicorn
@@ -123,4 +123,4 @@
         state: restarted
     - name: Update using apt
       apt:
-        update_cache: yes
+        update_cache: true
