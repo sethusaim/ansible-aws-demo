@@ -42,7 +42,7 @@
             owner: ubuntu
             mode: 755
             recurse: yes
-      when: var_lib_prometheus_folder.stats.exists == False
+      when: var_lib_prometheus_folder.stat.exists == False
 
     - name: Get and unarchive tar file
       ansible.builtin.unarchive:
