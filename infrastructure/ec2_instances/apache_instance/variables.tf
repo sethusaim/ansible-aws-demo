@@ -20,7 +20,7 @@ variable "apache_key_pair_name" {
 
 variable "apache_tag_name" {
   type    = string
-  default = "apache Server"
+  default = "Apache Server"
 }
 
 variable "apache_eip_name" {
