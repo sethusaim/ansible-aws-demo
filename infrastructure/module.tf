@@ -14,6 +14,10 @@ module "jenkins_instance" {
   source = "./ec2_instances/jenkins_instance"
 }
 
+module "prometheus_instance" {
+  source = "./ec2_instances/prometheus_instance"
+}
+
 module "mlflow_instance" {
   source = "./ec2_instances/mlflow_instance"
 }
