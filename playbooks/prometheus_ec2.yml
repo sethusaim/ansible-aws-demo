@@ -3,7 +3,7 @@
   become: true
   tasks:    
     - name: Check whether prometheus user exists or not
-      shell: id prometheus > /dev/null 2>&1 || echo not_exists
+      shell: id prom_user > /dev/null 2>&1 || echo not_exists
       register: user_exists  
 
     - name: Add prometheus user with no home directory
