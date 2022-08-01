@@ -37,7 +37,6 @@
         owner: prom_user
         mode: 755
         recurse: yes
-      when: etc_prometheus_folder.stat.exists == False
 
     - name: Check whether /var/lib/prometheus folder exists or not
       stat: 
