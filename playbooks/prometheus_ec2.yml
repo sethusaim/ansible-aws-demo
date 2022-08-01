@@ -32,7 +32,7 @@
       
     - name: Create /etc/prometheus folder
       file:
-        path: /etc/prometheus
+        path: /etc/prometheus/
         state: directory
         owner: prom_user
         mode: 755
@@ -54,7 +54,7 @@
 
     - name: Create /var/lib/prometheus folder
       file:
-        path: /var/lib/prometheus
+        path: /var/lib/prometheus/
         state: directory
         owner: prom_user
         mode: 755
@@ -93,7 +93,7 @@
 
     - name: Change owner for /etc/prometheus to prom_user 
       file:
-        path: /etc/prometheus
+        path: /etc/prometheus/
         state: directory
         recurse: yes
         owner: prom_user
@@ -113,23 +113,23 @@
 
     - name: Change owner for /etc/prometheus/consoles to prom_user
       file:
-        path: /etc/prometheus/consoles
+        path: /etc/prometheus/consoles/
         state: directory
         recurse: yes
         owner: prom_user
         group: prometheus
 
-    - name: Change owner for /etc/prometheus/console_libraries to prom_user
+    - name: Change owner for /etc/prometheus/console_libraries/ to prom_user
       file:
-        path: /etc/prometheus/console_libraries
+        path: /etc/prometheus/console_libraries/
         state: directory
         recurse: yes
         owner: prom_user
         group: prometheus
 
-    - name: Change owner for /var/lib/prometheus to prom_user
+    - name: Change owner for /var/lib/prometheus/ to prom_user
       file:
-        path: /var/lib/prometheus
+        path: /var/lib/prometheus/
         state: directory
         recurse: yes
         owner: prom_user
