@@ -71,7 +71,7 @@
       get_url:
         url: https://raw.githubusercontent.com/sethusaim/Ansible-AWS-Demo/main/others/prometheus_initial.yml
         dest: /home/ubuntu/
-        
+
     - name: Put the initial_prometheus configuration to prometheus.yml file
       shell: cat prometheus_initial.yml > prometheus.yml
     
@@ -111,6 +111,7 @@
     - name: Get the prometheus_final configuration file
       get_url:
         url: https://raw.githubusercontent.com/sethusaim/Ansible-AWS-Demo/main/others/prometheus_final.yml
+        dest: /home/ubuntu/prometheus_final.yml
 
     - name: Edit the prometheus.yml file
       shell: cat prometheus_final.yml > prometheus.yml
