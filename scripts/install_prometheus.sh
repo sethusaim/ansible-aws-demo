@@ -55,7 +55,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-User=prom_user
+User=root
 Group=prometheus
 Type=simple
 ExecStart=/usr/local/bin/prometheus \

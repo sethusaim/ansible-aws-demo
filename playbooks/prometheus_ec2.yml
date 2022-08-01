@@ -2,21 +2,6 @@
   hosts: Prometheus_Group
   become: true
   tasks:    
-    - name: Check whether prometheus user exists or not
-      shell: id prom_user > /dev/null 2>&1 || echo not_exists
-      register: user_exists  
-
-    - name: Create prometheus group
-      ansible.builtin.group:
-        name: prometheus
-        state: present
-
-    - name: Add prometheus user with no home directory
-      block:
-        - name: Add prometheus user with no home directory
-          shell: sudo useradd --no-create-home prom_user
-      when: user_exists.stdout == "not_exists"
-      
     - name: Check whether /etc/prometheus folder
       stat:
         path: /etc/prometheus
@@ -34,8 +19,6 @@
       file:
         path: /etc/prometheus/
         state: directory
-        owner: prom_user
-        mode: 755
         recurse: yes
 
     - name: Check whether /var/lib/prometheus folder exists or not
@@ -55,10 +38,7 @@
       file:
         path: /var/lib/prometheus/
         state: directory
-        owner: prom_user
-        mode: 755
-        recurse: yes
-
+      
     - name: Get the prometheus tar file
       get_url:
         url: https://github.com/prometheus/prometheus/releases/download/v2.37.0/prometheus-2.37.0.linux-amd64.tar.gz
@@ -89,50 +69,6 @@
 
     - name: Edit the prometheus.yml file
       shell: cat /home/ubuntu/prometheus_final.yml > /etc/prometheus/prometheus.yml
-
-    - name: Change owner for /etc/prometheus to prom_user 
-      file:
-        path: /etc/prometheus/
-        state: directory
-        recurse: yes
-        owner: prom_user
-        group: prometheus
-
-    - name: Change owner for /usr/local/bin/prometheus to prom_user
-      file:
-        path: /usr/local/bin/prometheus
-        owner: prom_user
-        group: prometheus
-
-    - name: Change owner for /usr/local/bin/promtool to prom_user
-      file:
-        path: /usr/local/bin/promtool
-        owner: prom_user
-        group: prometheus
-
-    - name: Change owner for /etc/prometheus/consoles to prom_user
-      file:
-        path: /etc/prometheus/consoles/
-        state: directory
-        recurse: yes
-        owner: prom_user
-        group: prometheus
-
-    - name: Change owner for /etc/prometheus/console_libraries/ to prom_user
-      file:
-        path: /etc/prometheus/console_libraries/
-        state: directory
-        recurse: yes
-        owner: prom_user
-        group: prometheus
-
-    - name: Change owner for /var/lib/prometheus/ to prom_user
-      file:
-        path: /var/lib/prometheus/
-        state: directory
-        recurse: yes
-        owner: prom_user
-        group: prometheus
 
     - name: Copy the prometheus service file
       ansible.builtin.copy:
