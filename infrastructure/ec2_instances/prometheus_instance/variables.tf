@@ -15,7 +15,7 @@ variable "prometheus_instance_type" {
 
 variable "prometheus_key_pair_name" {
   type    = string
-  default = "sethu"
+  default = "sethusaim"
 }
 
 variable "prometheus_tag_name" {
