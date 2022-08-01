@@ -73,7 +73,7 @@
         dest: /home/ubuntu/
 
     - name: Put the initial_prometheus configuration to prometheus.yml file
-      shell: cat prometheus_initial.yml > etc/prometheus/prometheus.yml
+      shell: cat prometheus_initial.yml > /etc/prometheus/prometheus.yml
     
     - name: Copy the prometheus service file
       ansible.builtin.copy:
