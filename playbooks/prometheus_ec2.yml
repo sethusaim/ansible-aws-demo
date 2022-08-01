@@ -52,7 +52,7 @@
     - name: Untar the prometheus tar file 
       shell: tar xvfz prometheus-2.37.0.linux-amd64.tar.gz
         
-    - name: Copy prometheus folder to /user/local/bin
+    - name: Copy prometheus folder to /usr/local/bin
       shell: sudo cp prometheus-2.37.0.linux-amd64/prometheus /usr/local/bin
 
     - name: Copy promotool to /usr/local/bin
@@ -73,7 +73,7 @@
         dest: /home/ubuntu/
 
     - name: Put the initial_prometheus configuration to prometheus.yml file
-      shell: cat prometheus_initial.yml > /etc/prometheus/prometheus.yml
+      shell: cat /home/ubuntu/prometheus_initial.yml > /etc/prometheus/prometheus.yml
     
     - name: Copy the prometheus service file
       ansible.builtin.copy:
@@ -108,13 +108,26 @@
         state: started
         enabled: yes
 
+    - name: Wait for 2 min
+      shell: sleep 120
+
     - name: Get the prometheus_final configuration file
       get_url:
         url: https://raw.githubusercontent.com/sethusaim/Ansible-AWS-Demo/main/others/prometheus_final.yml
-        dest: /home/ubuntu/prometheus_final.yml
+        dest: /home/ubuntu/
 
     - name: Edit the prometheus.yml file
-      shell: cat prometheus_final.yml > /etc/prometheus/prometheus.yml
+      shell: cat /home/ubuntu/prometheus_final.yml > /etc/prometheus/prometheus.yml
+
+    - name: Remove the initial prometheus configuration file
+      file:
+        path: /home/ubuntu/prometheus_initial.yml
+        state: absent
+
+    - name: Remove the final prometheus configuration file
+      file:
+        path: /hom/ubuntu/prometheus_final.yml
+        state: absent
 
     - name: Restart the prometheus server
       systemd:
