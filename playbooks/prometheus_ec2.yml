@@ -108,8 +108,6 @@
     - name: Change owner for /usr/local/bin/promtool to prom_user
       file:
         path: /usr/local/bin/promtool
-        state: directory
-        recurse: yes
         owner: prom_user
         group: prometheus
 
