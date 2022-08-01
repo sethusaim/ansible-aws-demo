@@ -114,11 +114,6 @@
         state: started
         enabled: yes
 
-    - name: Remove the initial prometheus configuration file
-      file:
-        path: /home/ubuntu/prometheus_initial.yml
-        state: absent
-
     - name: Remove the final prometheus configuration file
       file:
         path: /home/ubuntu/prometheus_final.yml
