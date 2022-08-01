@@ -67,10 +67,18 @@
     - name: Remove the prometheus tar file and extracted folder
       shell: sudo rm -rf prometheus-2.37.0.linux-amd64.tar.gz prometheus-2.37.0.linux-
 
-    - name: Copy the prometheus configuration file
+    - name: Get the initial_prometheus configuration file
+      get_url:
+        url: https://raw.githubusercontent.com/sethusaim/Ansible-AWS-Demo/main/others/prometheus_initial.yml
+        dest: /home/ubuntu/
+        
+    - name: Copy the initial_prometheus configuration file
       ansible.builtin.copy:
         src: /home/ubuntu/prometheus.yml
         dest: /etc/prometheus/ 
+
+    - name: Put the initial_prometheus configuration to prometheus.yml file
+      shell: cat prometheus_initial.yml > prometheus.yml
     
     - name: Copy the prometheus service file
       ansible.builtin.copy:
@@ -104,3 +112,15 @@
         name: prometheus
         state: started
         enabled: yes
+
+    - name: Get the prometheus_final configuration file
+      get_url:
+        url: https://raw.githubusercontent.com/sethusaim/Ansible-AWS-Demo/main/others/prometheus_final.yml
+
+    - name: Edit the prometheus.yml file
+      shell: cat prometheus_final.yml > prometheus.yml
+
+    - name: Restart the prometheus server
+      systemd:
+        name: prometheus
+        state: restarted
