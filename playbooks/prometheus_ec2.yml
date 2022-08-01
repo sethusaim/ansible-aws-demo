@@ -6,6 +6,11 @@
       shell: id prom_user > /dev/null 2>&1 || echo not_exists
       register: user_exists  
 
+    - name: Create prometheus group
+      ansible.builtin.group:
+        name: prometheus
+        state: present
+
     - name: Add prometheus user with no home directory
       block:
         - name: Add prometheus user with no home directory
