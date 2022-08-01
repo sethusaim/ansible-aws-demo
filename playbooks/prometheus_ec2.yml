@@ -72,11 +72,6 @@
         url: https://raw.githubusercontent.com/sethusaim/Ansible-AWS-Demo/main/others/prometheus_initial.yml
         dest: /home/ubuntu/
         
-    - name: Copy the initial_prometheus configuration file
-      ansible.builtin.copy:
-        src: /home/ubuntu/prometheus.yml
-        dest: /etc/prometheus/ 
-
     - name: Put the initial_prometheus configuration to prometheus.yml file
       shell: cat prometheus_initial.yml > prometheus.yml
     
