@@ -6,19 +6,19 @@ sudo mkdir /etc/prometheus
 
 sudo mkdir /var/lib/prometheus
 
-wget https://github.com/prometheus/prometheus/releases/download/v2.19.0/prometheus-2.19.0.linux-amd64.tar.gz
+wget https://github.com/prometheus/prometheus/releases/download/v2.37.0/prometheus-2.37.0.linux-amd64.tar.gz
 
-tar xvfz prometheus-2.19.0.linux-amd64.tar.gz
+tar xvfz prometheus-2.37.0.linux-amd64.tar.gz
 
-sudo cp prometheus-2.19.0.linux-amd64/prometheus /usr/local/bin
+sudo cp prometheus-2.37.0.linux-amd64/prometheus /usr/local/bin
 
-sudo cp prometheus-2.19.0.linux-amd64/promtool /usr/local/bin/
+sudo cp prometheus-2.37.0.linux-amd64/promtool /usr/local/bin/
 
-sudo cp -r prometheus-2.19.0.linux-amd64/consoles /etc/prometheus
+sudo cp -r prometheus-2.37.0.linux-amd64/consoles /etc/prometheus
 
-sudo cp -r prometheus-2.19.0.linux-amd64/console_libraries /etc/prometheus
+sudo cp -r prometheus-2.37.0.linux-amd64/console_libraries /etc/prometheus
 
-sudo rm -rf prometheus-2.19.0.linux-amd64.tar.gz prometheus-2.19.0.linux-
+sudo rm -rf prometheus-2.37.0.linux-amd64.tar.gz prometheus-2.37.0.linux-
 
 sudo nano /etc/prometheus/prometheus.yml
 
@@ -91,3 +91,5 @@ scrape_configs:
       - targets: ['MACHINE-1-PUBLIC-IP:9100','MACHINE-2-PUBLIC-IP:9100']
 '''
 sudo systemctl restart prometheus
+
+sudo systemctl status prometheus
