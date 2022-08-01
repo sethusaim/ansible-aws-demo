@@ -67,18 +67,13 @@
     - name: Remove the prometheus tar file and extracted folder
       shell: sudo rm -rf prometheus-2.37.0.linux-amd64.tar.gz prometheus-2.37.0.linux-
 
-    - name: Get the initial_prometheus configuration file
+    - name: Get the prometheus_final configuration file
       get_url:
-        url: https://raw.githubusercontent.com/sethusaim/Ansible-AWS-Demo/main/others/prometheus_initial.yml
+        url: https://raw.githubusercontent.com/sethusaim/Ansible-AWS-Demo/main/others/prometheus_final.yml
         dest: /home/ubuntu/
 
-    - name: Put the initial_prometheus configuration to prometheus.yml file
-      shell: cat /home/ubuntu/prometheus_initial.yml > /etc/prometheus/prometheus.yml
-    
-    - name: Copy the prometheus service file
-      ansible.builtin.copy:
-        src: /home/ubuntu/prometheus.service
-        dest: /etc/systemd/system
+    - name: Edit the prometheus.yml file
+      shell: cat /home/ubuntu/prometheus_final.yml > /etc/prometheus/prometheus.yml
 
     - name: Change owner for /etc/prometheus to prometheus user
       become: false
@@ -104,6 +99,11 @@
       become: false
       shell: sudo chown -R prometheus:prometheus /var/lib/prometheus
 
+    - name: Copy the prometheus service file
+      ansible.builtin.copy:
+        src: /home/ubuntu/prometheus.service
+        dest: /etc/systemd/system
+
     - name: Reload the daemon
       systemd:
         daemon_reload: yes
@@ -113,17 +113,6 @@
         name: prometheus
         state: started
         enabled: yes
-
-    - name: Wait for 2 min
-      shell: sleep 120
-
-    - name: Get the prometheus_final configuration file
-      get_url:
-        url: https://raw.githubusercontent.com/sethusaim/Ansible-AWS-Demo/main/others/prometheus_final.yml
-        dest: /home/ubuntu/
-
-    - name: Edit the prometheus.yml file
-      shell: cat /home/ubuntu/prometheus_final.yml > /etc/prometheus/prometheus.yml
 
     - name: Remove the initial prometheus configuration file
       file:
