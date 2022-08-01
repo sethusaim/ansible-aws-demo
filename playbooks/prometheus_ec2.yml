@@ -31,14 +31,12 @@
       when: etc_prometheus_folder.stat.exists == True
       
     - name: Create /etc/prometheus folder
-      block:
-        - name: Create /etc/prometheus folder
-          file:
-            path: /etc/prometheus
-            state: directory
-            owner: ubuntu
-            mode: 755
-            recurse: yes
+      file:
+        path: /etc/prometheus
+        state: directory
+        owner: prom_user
+        mode: 755
+        recurse: yes
       when: etc_prometheus_folder.stat.exists == False
 
     - name: Check whether /var/lib/prometheus folder exists or not
@@ -55,15 +53,12 @@
       when: var_lib_prometheus_folder.stat.exists
 
     - name: Create /var/lib/prometheus folder
-      block:
-        - name: Create /var/lib/prometheus folder
-          file:
-            path: /var/lib/prometheus
-            state: directory
-            owner: ubuntu
-            mode: 755
-            recurse: yes
-      when: var_lib_prometheus_folder.stat.exists == False
+      file:
+        path: /var/lib/prometheus
+        state: directory
+        owner: prom_user
+        mode: 755
+        recurse: yes
 
     - name: Get the prometheus tar file
       get_url:
