@@ -33,6 +33,19 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 '''
+
+sudo chown prometheus:prometheus /etc/prometheus
+
+sudo chown prometheus:prometheus /usr/local/bin/prometheus
+
+sudo chown prometheus:prometheus /usr/local/bin/promtool
+
+sudo chown -R prometheus:prometheus /etc/prometheus/consoles
+
+sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
+
+sudo chown -R prometheus:prometheus /var/lib/prometheus
+
 sudo nano /etc/systemd/system/prometheus.service
 
 '''
@@ -54,18 +67,6 @@ ExecStart=/usr/local/bin/prometheus \
 [Install]
 WantedBy=multi-user.target
 '''
-
-sudo chown prometheus:prometheus /etc/prometheus
-
-sudo chown prometheus:prometheus /usr/local/bin/prometheus
-
-sudo chown prometheus:prometheus /usr/local/bin/promtool
-
-sudo chown -R prometheus:prometheus /etc/prometheus/consoles
-
-sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
-
-sudo chown -R prometheus:prometheus /var/lib/prometheus
 
 sudo systemctl daemon-reload
 
