@@ -10,7 +10,7 @@
       block:
         - name: Add prometheus user with no home directory
           shell: sudo useradd --no-create-home prometheus
-      when: user_exists == not_exists
+      when: user_exists.stdout == "not_exists"
 
     - name: Check whether /etc/prometheus folder
       stat:
