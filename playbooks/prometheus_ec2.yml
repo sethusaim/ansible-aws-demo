@@ -102,7 +102,6 @@
     - name: Change owner for /usr/local/bin/prometheus to prom_user
       file:
         path: /usr/local/bin/prometheus
-        recurse: yes
         owner: prom_user
         group: prometheus
 
