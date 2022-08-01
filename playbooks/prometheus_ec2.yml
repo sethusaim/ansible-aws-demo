@@ -100,13 +100,13 @@
 
     - name: Change owner for /usr/local/bin/prometheus to prom_user
       file:
-        path: /usr/local/bin/prometheus/
+        path: /usr/local/bin/prometheus
         owner: prom_user
         group: prometheus
 
     - name: Change owner for /usr/local/bin/promtool to prom_user
       file:
-        path: /usr/local/bin/promtool/
+        path: /usr/local/bin/promtool
         owner: prom_user
         group: prometheus
 
