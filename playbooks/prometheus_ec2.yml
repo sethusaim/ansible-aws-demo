@@ -164,6 +164,11 @@
     - name: Edit the prometheus.yml file
       shell: cat /home/ubuntu/prometheus_final.yml > /etc/prometheus/prometheus.yml
 
+    - name: Copy the prometheus service file
+      ansible.builtin.copy:
+        src: /home/ubuntu/prometheus.service
+        dest: /etc/systemd/system
+
     - name: Change owner for /etc/prometheus to prometheus user
       shell: sudo chown prometheus:prometheus /etc/prometheus
 
