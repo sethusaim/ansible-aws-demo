@@ -24,3 +24,6 @@
 
 - name: Setup Prometheus and Grafana
   import playbook: monitoring.yml
+
+- name: Setup Prometheus EC2 Monitoring
+  import_playbook: prometheus_ec2.yml
