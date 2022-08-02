@@ -144,6 +144,12 @@ You will see that ansible playbook is running, and after sometime the tasks will
 
 Now that the playbook ran successfully, locate the public ip of the target EC2 instance and paste it the browser, you shall that apache ubuntu default html page is rendering which means that we have successfully installed apache in remote server using ansible
 
+### For prometheus setup, install this role and run the playbooks
+
+```bash
+ansible-galaxy install --roles-path /home/ubuntu/playbooks/roles cloudalchemy.prometheus
+```
+
 ### Clean up of the created resources
 Now the everything is running successfully, we need to clean up created resources in order to do so run the following commands
 
