@@ -1,7 +1,21 @@
 - name: Setup Prometheus on EC2 instance
   hosts: Prometheus_Group
   become: true
-  tasks:    
+  tasks:
+    - name: Update using apt
+      apt:
+        update_cache: true
+
+    - name: Update using apt-get
+      apt:
+        update_cache: true
+        force_apt_get: yes
+
+    - name: Ensure prometheus group exists
+      ansible.builtin.group:
+        name: prometheus
+        state: present
+
     - name: Check whether /etc/prometheus folder
       stat:
         path: /etc/prometheus
