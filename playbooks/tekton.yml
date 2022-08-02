@@ -2,6 +2,14 @@
   hosts: Application_Group
   become: true
   tasks:
+    - name: Update using apt 
+      apt:
+        update_cache: true
+
+    - name: Update using apt-get
+      apt:
+        update_cache: true
+        force_apt_get: yes
   
     - name: Install tekton pipelines
       become: false
