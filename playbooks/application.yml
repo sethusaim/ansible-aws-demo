@@ -123,6 +123,4 @@
       service:
         name: app
         state: restarted
-    - name: Update using apt
-      apt:
-        update_cache: true
+        
