@@ -1,7 +1,7 @@
 - name: Setup application in instance
   hosts: Application_Group
   roles:
-  - cloudalchemy.node_exporter
+    - cloudalchemy.node_exporter
   become: true
   vars_files:
     - /home/ubuntu/vars/variables.yml
@@ -17,13 +17,13 @@
 
     - name: Install pip3,nginx,gunicorn
       apt:
-        name: 
+        name:
           - python3-pip
           - nginx
           - gunicorn
         state: present
         update_cache: true
-    
+
     - name: Install apache-utils
       apt:
         name: apache-utils
@@ -66,11 +66,11 @@
 
     - name: Install gunicorn,passlib via pip3
       ansible.builtin.pip:
-        name: 
+        name:
           - gunicorn
           - passlib
         state: present
-        
+
     - name: Set user name and password for nginx
       community.general.htpasswd:
         path: /etc/nginx/.htpasswd
@@ -123,4 +123,3 @@
       service:
         name: app
         state: restarted
-        

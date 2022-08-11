@@ -2,7 +2,7 @@
   hosts: Jenkins_Group
   become: true
   tasks:
-    - name: Update using apt 
+    - name: Update using apt
       apt:
         update_cache: true
 
@@ -13,7 +13,7 @@
 
     - name: Get convenience script
       shell: curl -fsSL https://get.docker.com -o get-docker.sh
-      
+
     - name: Run the convenience script
       shell: sudo sh get-docker.sh
 

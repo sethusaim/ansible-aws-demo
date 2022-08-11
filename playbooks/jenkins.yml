@@ -1,7 +1,7 @@
 - name: Setup Jenkins
   hosts: Jenkins_Group
   roles:
-  - cloudalchemy.node_exporter
+    - cloudalchemy.node_exporter
   become: true
   tasks:
     - name: Update apt
@@ -18,13 +18,13 @@
         state: present
 
     - name: Add Jenkins Repositry Key
-      apt_key: 
-        url: https://pkg.jenkins.io/debian-stable/jenkins.io.key 
+      apt_key:
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
         state: present
-      
+
     - name: Configure Jenkins Repositry
-      apt_repository: 
-        repo: 'deb https://pkg.jenkins.io/debian-stable binary/' 
+      apt_repository:
+        repo: "deb https://pkg.jenkins.io/debian-stable binary/"
         state: present
 
     - name: Install Jenkins
@@ -39,6 +39,6 @@
     - name: Get Jenkins initial password
       shell: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
       register: jenkins_initial_password
-      
+
     - debug:
         msg: "Jenkins initial password : {{jenkins_initial_password.stdout}}"
