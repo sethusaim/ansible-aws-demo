@@ -20,6 +20,7 @@ pipeline {
       when {
         changeset 'infrastructure/*'
       }
+      
       steps {
         script {
           sh 'terraform -chdir=infrastructure init'
