@@ -1,6 +1,6 @@
 resource "aws_security_group" "db_security_group" {
-  name        = var.security_group_name
-  vpc_id      = var.db_vpc_id
+  name   = var.security_group_name
+  vpc_id = var.db_vpc_id
 
   ingress {
     from_port        = var.db_ingress_from_port
