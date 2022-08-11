@@ -6,6 +6,10 @@ terraform {
   }
 }
 
+module "mlflow_db_instance" {
+  source = "./database"
+}
+
 module "ansible_instance" {
   source = "./ec2_instances/ansible_instance"
 }
