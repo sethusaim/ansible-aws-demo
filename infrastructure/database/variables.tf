@@ -108,7 +108,7 @@ variable "security_group_name" {
 }
 
 variable "db_vpc_id" {
-  default = "vpc-04988da276151ec45"
+  default = "vpc-00d09b1de33a26216"  
   type    = string
 }
 
