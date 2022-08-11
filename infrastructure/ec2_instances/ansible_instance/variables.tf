@@ -34,7 +34,7 @@ variable "ansible_sg_group_name" {
 }
 
 variable "ansible_ingress_from_port" {
-  type    = number
+  type    = list(number)
   default = [22, 9090, 9100]
 }
 
