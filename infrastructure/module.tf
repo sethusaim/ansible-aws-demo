@@ -6,8 +6,12 @@ terraform {
   }
 }
 
-module "mlflow_db_instance" {
-  source = "./database"
+module "mlflow_rds_instance" {
+  source = "./databases/postgresql"
+}
+
+module "mongodb_database" {
+  source = "./databases/mongodb"
 }
 
 module "ansible_instance" {
