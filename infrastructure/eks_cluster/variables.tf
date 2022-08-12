@@ -8,7 +8,7 @@ variable "cluster-name" {
   type    = string
 }
 
-variable "clutser_instance_type" {
+variable "cluster_instance_type" {
   default = "t2.medium"
   type    = string
 }
