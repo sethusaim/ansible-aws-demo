@@ -16,7 +16,7 @@ pipeline {
       }
     }
 
-    stage('Plan and Apply new infrastrucuture') {
+    stage('Plan and Apply new infrastructure') {
       when {
         changeset 'infrastructure/*'
       }
