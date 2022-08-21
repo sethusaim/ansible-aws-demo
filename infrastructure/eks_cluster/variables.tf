@@ -13,6 +13,11 @@ variable "cluster_instance_type" {
   type    = string
 }
 
+variable "eks_cluster_role_name" {
+  default = "terraform-eks-cluster-role"
+  type    = string
+}
+
 variable "wafer_sg_group_name" {
   default = "terraform-eks-cluster"
   type    = string

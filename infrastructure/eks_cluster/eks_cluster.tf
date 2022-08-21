@@ -1,20 +1,10 @@
 resource "aws_iam_role" "cluster" {
-  name = "terraform-eks-cluster"
-
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
+  name               = var.eks_cluster_role_name
+  assume_role_policy = data.local_file.eks_cluster_role_file.content
 }
-POLICY
+
+data "local_file" "eks_cluster_role_file" {
+  filename = "./data/eks_cluster_role.json"
 }
 
 resource "aws_iam_role_policy_attachment" "cluster-AmazonEKSClusterPolicy" {
@@ -28,9 +18,8 @@ resource "aws_iam_role_policy_attachment" "cluster-AmazonEKSVPCResourceControlle
 }
 
 resource "aws_security_group" "cluster" {
-  name        = var.wafer_sg_group_name
-  description = "Cluster communication with worker nodes"
-  vpc_id      = aws_vpc.wafer.id
+  name   = var.wafer_sg_group_name
+  vpc_id = aws_vpc.wafer.id
 
   egress {
     from_port   = var.wafer_sg_group_egress_from_port
@@ -60,22 +49,12 @@ resource "aws_eks_cluster" "wafer" {
 }
 
 resource "aws_iam_role" "node" {
-  name = var.wafer_node_iam_role_name
-
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
+  name               = var.wafer_node_iam_role_name
+  assume_role_policy = data.local_file.aws_ec2_role.content
 }
-POLICY
+
+data "local_file" "aws_ec2_role" {
+  filename = "./data/ec2_role.json"
 }
 
 resource "aws_iam_role_policy_attachment" "node-AmazonEKSWorkerNodePolicy" {
