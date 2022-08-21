@@ -77,3 +77,23 @@ variable "ansible_volume_encryption" {
   default = true
   type    = bool
 }
+
+variable "ansible_eip_vpc" {
+  default = true
+  type = bool
+}
+
+variable "ansible_connection_type" {
+  default = "ssh"
+  type = string
+}
+
+variable "ansible_connection_user" {
+  default = "ubuntu"
+  type = string
+}
+
+variable "ansible_connection_timeout" {
+  default = "4m"
+  type = string
+}

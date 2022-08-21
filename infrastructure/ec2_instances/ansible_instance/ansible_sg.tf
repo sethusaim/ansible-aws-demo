@@ -1,6 +1,5 @@
 resource "aws_security_group" "security_group" {
   name        = var.ansible_sg_group_name
-  description = "Security Group for EKS Master Server"
 
   ingress {
     from_port   = var.ansible_ingress_from_port[0]

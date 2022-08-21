@@ -18,9 +18,9 @@ resource "aws_instance" "ansible_instance" {
   }
 
   connection {
-    type    = "ssh"
+    type    = var.ansible_connection_type
     host    = self.public_ip
-    user    = "ubuntu"
-    timeout = "4m"
+    user    = var.ansible_connection_user
+    timeout = var.ansible_connection_timeout
   }
 }
