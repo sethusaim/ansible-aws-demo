@@ -77,3 +77,24 @@ variable "mlflow_volume_encryption" {
   default = true
   type    = bool
 }
+
+
+variable "mlflow_eip_vpc" {
+  default = true
+  type = bool
+}
+
+variable "mlflow_connection_type" {
+  default = "ssh"
+  type = string
+}
+
+variable "mlflow_connection_user" {
+  default = "ubuntu"
+  type = string
+}
+
+variable "mlflow_connection_timeout" {
+  default = "4m"
+  type = string
+}

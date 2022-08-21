@@ -18,9 +18,9 @@ resource "aws_instance" "mlflow_instance" {
   }
 
   connection {
-    type    = "ssh"
+    type    = var.mlflow_connection_type
     host    = self.public_ip
-    user    = "ubuntu"
-    timeout = "4m"
+    user    = var.mlflow_connection_user
+    timeout = var.mlflow_connection_timeout
   }
 }

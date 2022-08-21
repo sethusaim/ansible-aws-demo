@@ -1,6 +1,5 @@
 resource "aws_security_group" "mlflow_security_group" {
   name        = var.mlflow_sg_group_name
-  description = "Security Group for MLFlow Server"
 
   ingress {
     from_port   = var.mlflow_ingress_from_port[0]
