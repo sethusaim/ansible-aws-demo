@@ -77,3 +77,23 @@ variable "application_volume_encryption" {
   default = true
   type    = bool
 }
+
+variable "application_eip_vpc" {
+  default = true
+  type = bool
+}
+
+variable "application_connection_type" {
+  default = "ssh"
+  type = string
+}
+
+variable "application_connection_user" {
+  default = "ubuntu"
+  type = string
+}
+
+variable "application_connection_timeout" {
+  default = "4m"
+  type = string
+}
