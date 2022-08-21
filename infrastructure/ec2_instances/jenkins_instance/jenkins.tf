@@ -18,9 +18,9 @@ resource "aws_instance" "jenkins_instance" {
   }
 
   connection {
-    type    = "ssh"
+    type    = var.jenkins_connection_type
     host    = self.public_ip
-    user    = "ubuntu"
-    timeout = "4m"
+    user    = var.jenkins_connection_user
+    timeout = var.jenkins_connection_timeout
   }
 }

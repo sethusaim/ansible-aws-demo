@@ -1,6 +1,5 @@
 resource "aws_security_group" "jenkins_security_group" {
   name        = var.jenkins_sg_group_name
-  description = "Security Group for Jenkins Server"
 
   ingress {
     from_port   = var.jenkins_ingress_from_port[0]
