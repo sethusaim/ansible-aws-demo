@@ -18,9 +18,9 @@ resource "aws_instance" "apache_instance" {
   }
 
   connection {
-    type    = "ssh"
+    type    = var.apache_connection_type
     host    = self.public_ip
-    user    = "ubuntu"
-    timeout = "4m"
+    user    = var.apache_connection_user
+    timeout = var.apache_connection_timeout
   }
 }

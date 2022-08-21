@@ -77,3 +77,23 @@ variable "apache_volume_encryption" {
   default = true
   type    = bool
 }
+
+variable "apache_eip_vpc" {
+  default = true
+  type = bool
+}
+
+variable "apache_connection_type" {
+  default = "ssh"
+  type = string
+}
+
+variable "apache_connection_user" {
+  default = "ubuntu"
+  type = string
+}
+
+variable "apache_connection_timeout" {
+  default = "4m"
+  type = string
+}
