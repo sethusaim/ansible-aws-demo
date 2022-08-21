@@ -1,6 +1,5 @@
 resource "aws_security_group" "prometheus_security_group" {
   name        = var.prometheus_sg_group_name
-  description = "Security Group for Prometheus Server"
 
   ingress {
     from_port   = var.prometheus_ingress_from_port[0]

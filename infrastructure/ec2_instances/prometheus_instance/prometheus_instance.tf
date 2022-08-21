@@ -18,9 +18,9 @@ resource "aws_instance" "prometheus_instance" {
   }
 
   connection {
-    type    = "ssh"
+    type    = var.prometheus_connection_type
     host    = self.public_ip
-    user    = "ubuntu"
-    timeout = "4m"
+    user    = var.prometheus_connection_user
+    timeout = var.prometheus_connection_timeout
   }
 }

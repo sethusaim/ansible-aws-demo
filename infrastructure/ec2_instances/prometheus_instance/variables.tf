@@ -77,3 +77,23 @@ variable "prometheus_volume_encryption" {
   default = true
   type    = bool
 }
+
+variable "prometheus_eip_vpc" {
+  default = true
+  type = bool
+}
+
+variable "prometheus_connection_type" {
+  default = "ssh"
+  type = string
+}
+
+variable "prometheus_connection_user" {
+  default = "ubuntu"
+  type = string
+}
+
+variable "prometheus_connection_timeout" {
+  default = "4m"
+  type = string
+}
